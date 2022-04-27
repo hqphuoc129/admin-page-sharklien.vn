@@ -5,12 +5,11 @@ export default function Popup(props) {
     const {title, children, openPopup, setOpenPopup} = props;
 
     return (
-        <Dialog open={openPopup}>
+        <Dialog open={openPopup} maxWidth="md">
             <DialogTitle>
                 <div>title day roi</div>
             </DialogTitle>
-            <DialogContent>
-                <div>content day ne</div>
+            <DialogContent dividers>
                 {children}
             </DialogContent>
         </Dialog>

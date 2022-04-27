@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FormControl, Button,FormControlLabel, FormGroup, FormLabel, Grid, Radio, RadioGroup, Switch, TextField} from '@mui/material';
 import {Label} from '@mui/icons-material';
+import {makeStyles} from '@mui/styles';
 import Axios from 'axios'; 
 
 const initialValues = {
@@ -10,9 +11,16 @@ const initialValues = {
     isvideo: false
 };
 
+
+const useStyles = makeStyles (theme => ({
+    paddingGrid : { 
+        padding: theme.spacing(3)
+    }
+}))
+
 export default function ImageForm() {
     const [values, setValues] = useState(initialValues);
-
+    const classes = useStyles();
     const handleChange = () => {
         setValues({ isvideo: !values.isvideo});
     };
@@ -33,17 +41,30 @@ export default function ImageForm() {
     function submit (e) {
         e.preventDefault();
         const formdata = new FormData();
-
         formdata.append("File" , fileSelected)
-        Axios.post(url, {
-            collectionName: values.collectionname,
-            mediaList : values.medialist, 
-            isVideo: values.isvideo, 
-            file: formdata,
+
+        var body = {
+            collectionName: "",
+            isVideo: false,
+            mediaList: [''],
+        }
+
+
+        Axios({
+            url : url,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            data : body,
+            method: 'post',
         })
         .then(res => {
             console.log(res.data)
         })
+        .catch((error) => {
+            console.log(error)
+            //handle error
+        });
     }
 
     function handleOnchange (e) {
@@ -56,10 +77,10 @@ export default function ImageForm() {
     return (
         <form method="POST" onSubmit={(e) => submit(e)}>
             <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={6} className={classes.paddingGrid}>
                     <TextField variant="outlined" label="Collection Name"  onChange={(e) => handleOnchange(e)} value={values.collectionname} id="collectionname" />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} className={classes.paddingGrid}>
                     <FormGroup>
                         <FormControlLabel onClick={() => handleChange()} control={<Switch value={values.isvideo} />} label="Video" />
                         {console.log(values.isvideo)}
@@ -75,8 +96,8 @@ export default function ImageForm() {
                         onChange={(e) => saveFileSelected(e)} id="file" 
                         />
                     </Button>
-                    <Button variant="outlined">Submit</Button>
                 </Grid>
+                <Button type="submit"  variant='outlined'>Submit</Button>
             </Grid>
         </form>
     );
