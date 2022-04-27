@@ -13,7 +13,7 @@ const AuthenticationRoutes = {
     path: '/',
     children: [
         {
-            path: '/pages/login/login3',
+            path: '/pages/login',
             element: <AuthLogin3 />
         },
         {
