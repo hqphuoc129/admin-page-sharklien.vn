@@ -41,7 +41,9 @@ export default function ImageForm() {
     function submit (e) {
         e.preventDefault();
         const formdata = new FormData();
-        formdata.append("File" , fileSelected)
+        formdata.append("collectionName" , values.collectionname)
+        formdata.append("isVideo" , false)
+        formdata.append("mediaList" , [''])
 
         var body = {
             collectionName: "",
@@ -55,7 +57,7 @@ export default function ImageForm() {
             headers: {
                 'Content-Type': 'multipart/form-data'
             },
-            data : body,
+            data : formdata,
             method: 'post',
         })
         .then(res => {
