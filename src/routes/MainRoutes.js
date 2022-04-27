@@ -8,6 +8,8 @@ import Loadable from 'ui-component/Loadable';
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 const News = Loadable(lazy(() => import('views/news/index')));
 const Media = Loadable(lazy(() => import('views/media/index')));
+const Videos = Loadable(lazy(() => import('views/videos/index')));
+const Images = Loadable(lazy(() => import('views/images/index')));
 
 // utilities routing
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
@@ -33,6 +35,14 @@ const MainRoutes = {
         {
             path: '/news',
             element: <News />
+        },
+        {
+            path: '/videos',
+            element: <Videos />
+        },
+        {
+            path: '/images',
+            element: <Images />
         },
         {
             path: '/utils/util-typography',
