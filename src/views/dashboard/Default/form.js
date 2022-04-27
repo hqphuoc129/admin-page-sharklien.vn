@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Radio, RadioGroup, Switch, TextField } from '@mui/material';
-import { Label } from '@mui/icons-material';
+import React, {useState} from 'react';
+import {FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Radio, RadioGroup, Switch, TextField} from '@mui/material';
+import {Label} from '@mui/icons-material';
 
 const initialValues = {
     collectionname: '',

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { forwardRef } from 'react';
+import {forwardRef} from 'react';
 // third-party
-import { motion, useCycle } from 'framer-motion';
+import {motion, useCycle} from 'framer-motion';
 
 // ==============================|| ANIMATION BUTTON ||============================== //
 
-const AnimateButton = forwardRef(({ children, type, direction, offset, scale }, ref) => {
+const AnimateButton = forwardRef(({children, type, direction, offset, scale}, ref) => {
     let offset1;
     let offset2;
     switch (direction) {
@@ -30,7 +30,7 @@ const AnimateButton = forwardRef(({ children, type, direction, offset, scale }, 
             return (
                 <motion.div
                     ref={ref}
-                    animate={{ rotate: 360 }}
+                    animate={{rotate: 360}}
                     transition={{
                         repeat: Infinity,
                         repeatType: 'loop',
@@ -44,18 +44,13 @@ const AnimateButton = forwardRef(({ children, type, direction, offset, scale }, 
         case 'slide':
             if (direction === 'up' || direction === 'down') {
                 return (
-                    <motion.div
-                        ref={ref}
-                        animate={{ y: y !== undefined ? y : '' }}
-                        onHoverEnd={() => cycleY()}
-                        onHoverStart={() => cycleY()}
-                    >
+                    <motion.div ref={ref} animate={{y: y !== undefined ? y : ''}} onHoverEnd={() => cycleY()} onHoverStart={() => cycleY()}>
                         {children}
                     </motion.div>
                 );
             }
             return (
-                <motion.div ref={ref} animate={{ x: x !== undefined ? x : '' }} onHoverEnd={() => cycleX()} onHoverStart={() => cycleX()}>
+                <motion.div ref={ref} animate={{x: x !== undefined ? x : ''}} onHoverEnd={() => cycleX()} onHoverStart={() => cycleX()}>
                     {children}
                 </motion.div>
             );
@@ -69,7 +64,7 @@ const AnimateButton = forwardRef(({ children, type, direction, offset, scale }, 
                 };
             }
             return (
-                <motion.div ref={ref} whileHover={{ scale: scale?.hover }} whileTap={{ scale: scale?.tap }}>
+                <motion.div ref={ref} whileHover={{scale: scale?.hover}} whileTap={{scale: scale?.tap}}>
                     {children}
                 </motion.div>
             );

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 // material-ui
-import { Grid, Button } from '@mui/material';
+import {Grid, Button} from '@mui/material';
 
 import Popup from '../../layout/Popup';
 import ImageForm from '../dashboard/Default/form';

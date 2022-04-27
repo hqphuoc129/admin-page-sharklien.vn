@@ -1,22 +1,22 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import {useState} from 'react';
 
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
-import { Avatar, Box, ButtonBase, Card, Grid, InputAdornment, OutlinedInput, Popper } from '@mui/material';
+import {useTheme, styled} from '@mui/material/styles';
+import {Avatar, Box, ButtonBase, Card, Grid, InputAdornment, OutlinedInput, Popper} from '@mui/material';
 
 // third-party
-import PopupState, { bindPopper, bindToggle } from 'material-ui-popup-state';
+import PopupState, {bindPopper, bindToggle} from 'material-ui-popup-state';
 
 // project imports
 import Transitions from 'ui-component/extended/Transitions';
 
 // assets
-import { IconAdjustmentsHorizontal, IconSearch, IconX } from '@tabler/icons';
-import { shouldForwardProp } from '@mui/system';
+import {IconAdjustmentsHorizontal, IconSearch, IconX} from '@tabler/icons';
+import {shouldForwardProp} from '@mui/system';
 
 // styles
-const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
+const PopperStyle = styled(Popper, {shouldForwardProp})(({theme}) => ({
     zIndex: 1100,
     width: '99%',
     top: '-55px !important',
@@ -26,7 +26,7 @@ const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
     }
 }));
 
-const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme }) => ({
+const OutlineInputStyle = styled(OutlinedInput, {shouldForwardProp})(({theme}) => ({
     width: 434,
     marginLeft: 16,
     paddingLeft: 16,
@@ -45,7 +45,7 @@ const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme 
     }
 }));
 
-const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => ({
+const HeaderAvatarStyle = styled(Avatar, {shouldForwardProp})(({theme}) => ({
     ...theme.typography.commonAvatar,
     ...theme.typography.mediumAvatar,
     background: theme.palette.secondary.light,
@@ -58,7 +58,7 @@ const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => (
 
 // ==============================|| SEARCH INPUT - MOBILE||============================== //
 
-const MobileSearch = ({ value, setValue, popupState }) => {
+const MobileSearch = ({value, setValue, popupState}) => {
     const theme = useTheme();
 
     return (
@@ -74,13 +74,13 @@ const MobileSearch = ({ value, setValue, popupState }) => {
             }
             endAdornment={
                 <InputAdornment position="end">
-                    <ButtonBase sx={{ borderRadius: '12px' }}>
+                    <ButtonBase sx={{borderRadius: '12px'}}>
                         <HeaderAvatarStyle variant="rounded">
                             <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
                         </HeaderAvatarStyle>
                     </ButtonBase>
-                    <Box sx={{ ml: 2 }}>
-                        <ButtonBase sx={{ borderRadius: '12px' }}>
+                    <Box sx={{ml: 2}}>
+                        <ButtonBase sx={{borderRadius: '12px'}}>
                             <Avatar
                                 variant="rounded"
                                 sx={{
@@ -102,7 +102,7 @@ const MobileSearch = ({ value, setValue, popupState }) => {
                 </InputAdornment>
             }
             aria-describedby="search-helper-text"
-            inputProps={{ 'aria-label': 'weight' }}
+            inputProps={{'aria-label': 'weight'}}
         />
     );
 };
@@ -121,21 +121,21 @@ const SearchSection = () => {
 
     return (
         <>
-            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+            <Box sx={{display: {xs: 'block', md: 'none'}}}>
                 <PopupState variant="popper" popupId="demo-popup-popper">
                     {(popupState) => (
                         <>
-                            <Box sx={{ ml: 2 }}>
-                                <ButtonBase sx={{ borderRadius: '12px' }}>
+                            <Box sx={{ml: 2}}>
+                                <ButtonBase sx={{borderRadius: '12px'}}>
                                     <HeaderAvatarStyle variant="rounded" {...bindToggle(popupState)}>
                                         <IconSearch stroke={1.5} size="1.2rem" />
                                     </HeaderAvatarStyle>
                                 </ButtonBase>
                             </Box>
                             <PopperStyle {...bindPopper(popupState)} transition>
-                                {({ TransitionProps }) => (
+                                {({TransitionProps}) => (
                                     <>
-                                        <Transitions type="zoom" {...TransitionProps} sx={{ transformOrigin: 'center left' }}>
+                                        <Transitions type="zoom" {...TransitionProps} sx={{transformOrigin: 'center left'}}>
                                             <Card
                                                 sx={{
                                                     background: '#fff',
@@ -145,7 +145,7 @@ const SearchSection = () => {
                                                     }
                                                 }}
                                             >
-                                                <Box sx={{ p: 2 }}>
+                                                <Box sx={{p: 2}}>
                                                     <Grid container alignItems="center" justifyContent="space-between">
                                                         <Grid item xs>
                                                             <MobileSearch value={value} setValue={setValue} popupState={popupState} />
@@ -161,7 +161,7 @@ const SearchSection = () => {
                     )}
                 </PopupState>
             </Box>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+            <Box sx={{display: {xs: 'none', md: 'block'}}}>
                 <OutlineInputStyle
                     id="input-search-header"
                     value={value}
@@ -174,7 +174,7 @@ const SearchSection = () => {
                     }
                     endAdornment={
                         <InputAdornment position="end">
-                            <ButtonBase sx={{ borderRadius: '12px' }}>
+                            <ButtonBase sx={{borderRadius: '12px'}}>
                                 <HeaderAvatarStyle variant="rounded">
                                     <IconAdjustmentsHorizontal stroke={1.5} size="1.3rem" />
                                 </HeaderAvatarStyle>
@@ -182,7 +182,7 @@ const SearchSection = () => {
                         </InputAdornment>
                     }
                     aria-describedby="search-helper-text"
-                    inputProps={{ 'aria-label': 'weight' }}
+                    inputProps={{'aria-label': 'weight'}}
                 />
             </Box>
         </>

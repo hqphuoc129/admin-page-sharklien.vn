@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import {useState, useRef, useEffect, useCallback} from 'react';
 
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import {
     Avatar,
     Box,
@@ -37,7 +37,7 @@ import UpgradePlanCard from './UpgradePlanCard';
 import User1 from 'assets/images/users/user-round.svg';
 
 // assets
-import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
+import {IconLogout, IconSearch, IconSettings, IconUser} from '@tabler/icons';
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -56,7 +56,7 @@ const ProfileSection = () => {
      * */
     const anchorRef = useRef(null);
 
-    const handleLogout = useCallback(() => navigate('/pages/login', { replace: true }), [navigate]);
+    const handleLogout = useCallback(() => navigate('/pages/login', {replace: true}), [navigate]);
 
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -134,12 +134,12 @@ const ProfileSection = () => {
                     ]
                 }}
             >
-                {({ TransitionProps }) => (
+                {({TransitionProps}) => (
                     <Transitions in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                                    <Box sx={{ p: 2 }}>
+                                    <Box sx={{p: 2}}>
                                         <Stack>
                                             <Stack direction="row" spacing={0.5} alignItems="center">
                                                 <Typography variant="h4">Good Morning,</Typography>
@@ -147,8 +147,8 @@ const ProfileSection = () => {
                                             <Typography variant="subtitle2">Project Admin</Typography>
                                         </Stack>
                                     </Box>
-                                    <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
-                                        <Box sx={{ p: 2 }}>
+                                    <PerfectScrollbar style={{height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden'}}>
+                                        <Box sx={{p: 2}}>
                                             <Divider />
                                             <List
                                                 component="nav"
@@ -167,7 +167,7 @@ const ProfileSection = () => {
                                                 }}
                                             >
                                                 <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                    sx={{borderRadius: `${customization.borderRadius}px`}}
                                                     selected={selectedIndex === 0}
                                                     onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
                                                 >
@@ -177,7 +177,7 @@ const ProfileSection = () => {
                                                     <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
                                                 </ListItemButton>
                                                 <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                    sx={{borderRadius: `${customization.borderRadius}px`}}
                                                     selected={selectedIndex === 4}
                                                     onClick={handleLogout}
                                                 >

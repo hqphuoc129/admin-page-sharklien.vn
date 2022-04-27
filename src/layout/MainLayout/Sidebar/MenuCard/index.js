@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { styled, useTheme } from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 import {
     Avatar,
     Card,
@@ -20,7 +20,7 @@ import {
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 // styles
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+const BorderLinearProgress = styled(LinearProgress)(({theme}) => ({
     height: 10,
     borderRadius: 30,
     [`&.${linearProgressClasses.colorPrimary}`]: {
@@ -32,7 +32,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     }
 }));
 
-const CardStyle = styled(Card)(({ theme }) => ({
+const CardStyle = styled(Card)(({theme}) => ({
     background: theme.palette.primary.light,
     marginBottom: '22px',
     overflow: 'hidden',
@@ -51,15 +51,15 @@ const CardStyle = styled(Card)(({ theme }) => ({
 
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
 
-function LinearProgressWithLabel({ value, ...others }) {
+function LinearProgressWithLabel({value, ...others}) {
     const theme = useTheme();
 
     return (
-        <Grid container direction="column" spacing={1} sx={{ mt: 1.5 }}>
+        <Grid container direction="column" spacing={1} sx={{mt: 1.5}}>
             <Grid item>
                 <Grid container justifyContent="space-between">
                     <Grid item>
-                        <Typography variant="h6" sx={{ color: theme.palette.primary[800] }}>
+                        <Typography variant="h6" sx={{color: theme.palette.primary[800]}}>
                             Progress
                         </Typography>
                     </Grid>
@@ -86,10 +86,10 @@ const MenuCard = () => {
 
     return (
         <CardStyle>
-            <CardContent sx={{ p: 2 }}>
-                <List sx={{ p: 0, m: 0 }}>
-                    <ListItem alignItems="flex-start" disableGutters sx={{ p: 0 }}>
-                        <ListItemAvatar sx={{ mt: 0 }}>
+            <CardContent sx={{p: 2}}>
+                <List sx={{p: 0, m: 0}}>
+                    <ListItem alignItems="flex-start" disableGutters sx={{p: 0}}>
+                        <ListItemAvatar sx={{mt: 0}}>
                             <Avatar
                                 variant="rounded"
                                 sx={{
@@ -106,9 +106,9 @@ const MenuCard = () => {
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                            sx={{ mt: 0 }}
+                            sx={{mt: 0}}
                             primary={
-                                <Typography variant="subtitle1" sx={{ color: theme.palette.primary[800] }}>
+                                <Typography variant="subtitle1" sx={{color: theme.palette.primary[800]}}>
                                     Get Extra Space
                                 </Typography>
                             }

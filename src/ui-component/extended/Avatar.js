@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import MuiAvatar from '@mui/material/Avatar';
 
 // ==============================|| AVATAR ||============================== //
 
-const Avatar = ({ color, outline, size, sx, ...others }) => {
+const Avatar = ({color, outline, size, sx, ...others}) => {
     const theme = useTheme();
 
-    const colorSX = color && !outline && { color: theme.palette.background.paper, bgcolor: `${color}.main` };
+    const colorSX = color && !outline && {color: theme.palette.background.paper, bgcolor: `${color}.main`};
     const outlineSX = outline && {
         color: color ? `${color}.main` : `primary.main`,
         bgcolor: theme.palette.background.paper,
@@ -58,7 +58,7 @@ const Avatar = ({ color, outline, size, sx, ...others }) => {
             sizeSX = {};
     }
 
-    return <MuiAvatar sx={{ ...colorSX, ...outlineSX, ...sizeSX, ...sx }} {...others} />;
+    return <MuiAvatar sx={{...colorSX, ...outlineSX, ...sizeSX, ...sx}} {...others} />;
 };
 
 Avatar.propTypes = {
