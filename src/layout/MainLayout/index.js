@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-
+import MyDataTable from 'ui-component/datatable/MyDataTable';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
@@ -106,6 +106,7 @@ const MainLayout = () => {
             <Main theme={theme} open={leftDrawerOpened}>
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
+                <MyDataTable />
                 <Outlet />
             </Main>
             <Customization />
