@@ -13,7 +13,7 @@ export default function ImageForm() {
     const [values, setValues] = useState(initialValues);
 
     const handleChange = () => {
-        setValues(!values.isvideo, ...values);
+        setValues({ isvideo: !values.isvideo});
     };
     return (
         <form>
