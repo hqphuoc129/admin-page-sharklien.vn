@@ -1,18 +1,49 @@
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useCallback, useState, useEffect, useMemo, useRef } from "react";
+import Popper from "@mui/material/Popper";
+import Box from "@mui/material/Box";
 
 const News = () => {
   const [data, setData] = useState([]);
-
-  const columns = [
-    { field: "id", headerName: "ID", width: 200 },
-    { field: "title", headerName: "Title", width: 200 },
-    { field: "description", headerName: "Description", width: 200 },
-    { field: "content", headerName: "Content", width: 200 },
-    { field: "thumbnailUrl", headerName: "Thumbnail URL", width: 200 },
-    { field: "url", headerName: "URL", width: 200 },
-  ];
+  const deleteNews = useCallback(
+    async (url) => {
+      await axios.delete(
+        `https://sharklien-backend.herokuapp.com/api/news/delete-news/${url}`
+      );
+      setData(data.filter((item) => item.url !== url));
+    },
+    [data]
+  );
+  const columns = useMemo(
+    () => [
+      { field: "id", headerName: "ID", width: 200 },
+      { field: "title", headerName: "Title", width: 200 },
+      { field: "description", headerName: "Description", width: 200 },
+      { field: "content", headerName: "Content", width: 200 },
+      { field: "thumbnailUrl", headerName: "Thumbnail URL", width: 200 },
+      { field: "url", headerName: "URL", width: 200 },
+      {
+        field: "actions",
+        type: "actions",
+        width: 80,
+        getActions: (params) => [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={() => {
+              console.log(params);
+              deleteNews(params.row.url).then(() => {
+                console.log("deleted");
+              });
+            }}
+          />,
+        ],
+      },
+    ],
+    [deleteNews]
+  );
 
   useEffect(() => {
     axios
@@ -26,13 +57,16 @@ const News = () => {
   console.log(data);
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <DataGrid
         rows={data}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={15}
+        rowsPerPageOptions={[15, 30]}
         checkboxSelection
+        components={{
+          Toolbar: GridToolbar,
+        }}
         sx={{
           boxShadow: 2,
           border: 2,
