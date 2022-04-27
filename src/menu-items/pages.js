@@ -24,9 +24,24 @@ const pages = {
                 {
                     id: 'login3',
                     title: 'Media',
-                    type: 'item',
                     url: '/',
-                    breadcrumbs: false
+                    type: 'collapse',
+                    children: [
+                        {
+                            id: 'register6',
+                            title: 'Videos',
+                            type: 'item',
+                            url: '/videos',
+                            breadcrumbs: false
+                        },
+                        {
+                            id: 'register7',
+                            title: 'Images',
+                            type: 'item',
+                            url: '/images',
+                            breadcrumbs: false
+                        }
+                    ]
                 },
                 {
                     id: 'register3',

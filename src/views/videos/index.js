@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 // material-ui
 import { Grid, Button } from '@mui/material';
 
-// project imports
-import Popup from '../../../layout/Popup';
-import ImageForm from './form';
+import Popup from '../../layout/Popup';
+import ImageForm from '../dashboard/Default/form';
+
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
-const Dashboard = () => {
+const Videos = () => {
     const [isLoading, setLoading] = useState(true);
     const [openPopup, setOpenPopup] = useState(false);
     useEffect(() => {
@@ -16,7 +16,7 @@ const Dashboard = () => {
     }, []);
     return (
         <div>
-            hehheeh
+            Videos
             <Button variant="contained" onClick={() => setOpenPopup(!openPopup)}>
                 Create Image Collection
             </Button>
@@ -27,4 +27,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Videos;
