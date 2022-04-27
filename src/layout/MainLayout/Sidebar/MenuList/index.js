@@ -1,5 +1,5 @@
 // material-ui
-import { Typography } from '@mui/material';
+import {Typography} from '@mui/material';
 
 // project imports
 import NavGroup from './NavGroup';

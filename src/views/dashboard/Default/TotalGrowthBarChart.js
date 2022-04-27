@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Grid, MenuItem, TextField, Typography } from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import {Grid, MenuItem, TextField, Typography} from '@mui/material';
 
 // third-party
 import ApexCharts from 'apexcharts';
@@ -13,7 +13,7 @@ import Chart from 'react-apexcharts';
 // project imports
 import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
 import MainCard from 'ui-component/cards/MainCard';
-import { gridSpacing } from 'store/constant';
+import {gridSpacing} from 'store/constant';
 
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';
@@ -35,13 +35,13 @@ const status = [
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
-const TotalGrowthBarChart = ({ isLoading }) => {
+const TotalGrowthBarChart = ({isLoading}) => {
     const [value, setValue] = useState('today');
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
 
-    const { navType } = customization;
-    const { primary } = theme.palette.text;
+    const {navType} = customization;
+    const {primary} = theme.palette.text;
     const darkLight = theme.palette.dark.light;
     const grey200 = theme.palette.grey[200];
     const grey500 = theme.palette.grey[500];

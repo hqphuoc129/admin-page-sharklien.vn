@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import {
-    Drawer,
-    Fab,
-    FormControl,
-    FormControlLabel,
-    Grid,
-    IconButton,
-    Radio,
-    RadioGroup,
-    Slider,
-    Tooltip,
-    Typography
-} from '@mui/material';
-import { IconSettings } from '@tabler/icons';
+import {useTheme} from '@mui/material/styles';
+import {Drawer, Fab, FormControl, FormControlLabel, Grid, IconButton, Radio, RadioGroup, Slider, Tooltip, Typography} from '@mui/material';
+import {IconSettings} from '@tabler/icons';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -24,8 +12,8 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
-import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from 'store/actions';
-import { gridSpacing } from 'store/constant';
+import {SET_BORDER_RADIUS, SET_FONT_FAMILY} from 'store/actions';
+import {gridSpacing} from 'store/constant';
 
 // concat 'px'
 function valueText(value) {
@@ -52,7 +40,7 @@ const Customization = () => {
     };
 
     useEffect(() => {
-        dispatch({ type: SET_BORDER_RADIUS, borderRadius });
+        dispatch({type: SET_BORDER_RADIUS, borderRadius});
     }, [dispatch, borderRadius]);
 
     let initialFont;
@@ -85,7 +73,7 @@ const Customization = () => {
                 newFont = `'Roboto', sans-serif`;
                 break;
         }
-        dispatch({ type: SET_FONT_FAMILY, fontFamily: newFont });
+        dispatch({type: SET_FONT_FAMILY, fontFamily: newFont});
     }, [dispatch, fontFamily]);
 
     return (
@@ -129,7 +117,7 @@ const Customization = () => {
                 }}
             >
                 <PerfectScrollbar component="div">
-                    <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
+                    <Grid container spacing={gridSpacing} sx={{p: 3}}>
                         <Grid item xs={12}>
                             {/* font family */}
                             <SubCard title="Font Family">
@@ -145,8 +133,8 @@ const Customization = () => {
                                             control={<Radio />}
                                             label="Roboto"
                                             sx={{
-                                                '& .MuiSvgIcon-root': { fontSize: 28 },
-                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                                                '& .MuiSvgIcon-root': {fontSize: 28},
+                                                '& .MuiFormControlLabel-label': {color: theme.palette.grey[900]}
                                             }}
                                         />
                                         <FormControlLabel
@@ -154,8 +142,8 @@ const Customization = () => {
                                             control={<Radio />}
                                             label="Poppins"
                                             sx={{
-                                                '& .MuiSvgIcon-root': { fontSize: 28 },
-                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                                                '& .MuiSvgIcon-root': {fontSize: 28},
+                                                '& .MuiFormControlLabel-label': {color: theme.palette.grey[900]}
                                             }}
                                         />
                                         <FormControlLabel
@@ -163,8 +151,8 @@ const Customization = () => {
                                             control={<Radio />}
                                             label="Inter"
                                             sx={{
-                                                '& .MuiSvgIcon-root': { fontSize: 28 },
-                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
+                                                '& .MuiSvgIcon-root': {fontSize: 28},
+                                                '& .MuiFormControlLabel-label': {color: theme.palette.grey[900]}
                                             }}
                                         />
                                     </RadioGroup>
@@ -174,7 +162,7 @@ const Customization = () => {
                         <Grid item xs={12}>
                             {/* border radius */}
                             <SubCard title="Border Radius">
-                                <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
+                                <Grid item xs={12} container spacing={2} alignItems="center" sx={{mt: 2.5}}>
                                     <Grid item>
                                         <Typography variant="h6" color="secondary">
                                             4px

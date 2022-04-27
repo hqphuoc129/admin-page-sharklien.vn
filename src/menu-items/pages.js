@@ -1,5 +1,5 @@
 // assets
-import { IconKey } from '@tabler/icons';
+import {IconKey} from '@tabler/icons';
 
 // constant
 const icons = {

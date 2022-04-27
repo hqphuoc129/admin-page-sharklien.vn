@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Box, Card, Divider, Grid, Typography } from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import {Box, Card, Divider, Grid, Typography} from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
 import config from 'config';
-import { gridSpacing } from 'store/constant';
+import {gridSpacing} from 'store/constant';
 
 // assets
-import { IconTallymark1 } from '@tabler/icons';
+import {IconTallymark1} from '@tabler/icons';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
@@ -27,7 +27,7 @@ const linkSX = {
 
 // ==============================|| BREADCRUMBS ||============================== //
 
-const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAlign, separator, title, titleBottom, ...others }) => {
+const Breadcrumbs = ({card, divider, icon, icons, maxItems, navigation, rightAlign, separator, title, titleBottom, ...others}) => {
     const theme = useTheme();
 
     const iconStyle = {
@@ -122,7 +122,7 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
                     }}
                     {...others}
                 >
-                    <Box sx={{ p: 2, pl: card === false ? 0 : 2 }}>
+                    <Box sx={{p: 2, pl: card === false ? 0 : 2}}>
                         <Grid
                             container
                             direction={rightAlign ? 'row' : 'column'}
@@ -132,21 +132,21 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
                         >
                             {title && !titleBottom && (
                                 <Grid item>
-                                    <Typography variant="h3" sx={{ fontWeight: 500 }}>
+                                    <Typography variant="h3" sx={{fontWeight: 500}}>
                                         {item.title}
                                     </Typography>
                                 </Grid>
                             )}
                             <Grid item>
                                 <MuiBreadcrumbs
-                                    sx={{ '& .MuiBreadcrumbs-separator': { width: 16, ml: 1.25, mr: 1.25 } }}
+                                    sx={{'& .MuiBreadcrumbs-separator': {width: 16, ml: 1.25, mr: 1.25}}}
                                     aria-label="breadcrumb"
                                     maxItems={maxItems || 8}
                                     separator={separatorIcon}
                                 >
                                     <Typography component={Link} to="/" color="inherit" variant="subtitle1" sx={linkSX}>
                                         {icons && <HomeTwoToneIcon sx={iconStyle} />}
-                                        {icon && <HomeIcon sx={{ ...iconStyle, mr: 0 }} />}
+                                        {icon && <HomeIcon sx={{...iconStyle, mr: 0}} />}
                                         {!icon && 'Dashboard'}
                                     </Typography>
                                     {mainContent}
@@ -155,14 +155,14 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
                             </Grid>
                             {title && titleBottom && (
                                 <Grid item>
-                                    <Typography variant="h3" sx={{ fontWeight: 500 }}>
+                                    <Typography variant="h3" sx={{fontWeight: 500}}>
                                         {item.title}
                                     </Typography>
                                 </Grid>
                             )}
                         </Grid>
                     </Box>
-                    {card === false && divider !== false && <Divider sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing }} />}
+                    {card === false && divider !== false && <Divider sx={{borderColor: theme.palette.primary.main, mb: gridSpacing}} />}
                 </Card>
             );
         }

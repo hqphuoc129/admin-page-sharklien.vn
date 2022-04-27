@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import {
     Box,
     Button,
@@ -23,7 +23,7 @@ import {
 
 // third party
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import {Formik} from 'formik';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -37,7 +37,7 @@ import Google from 'assets/images/icons/social-google.svg';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const FirebaseLogin = ({ ...others }) => {
+const FirebaseLogin = ({...others}) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -69,25 +69,25 @@ const FirebaseLogin = ({ ...others }) => {
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+                onSubmit={async (values, {setErrors, setStatus, setSubmitting}) => {
                     try {
                         if (scriptedRef.current) {
-                            setStatus({ success: true });
+                            setStatus({success: true});
                             setSubmitting(false);
                         }
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
+                            setStatus({success: false});
+                            setErrors({submit: err.message});
                             setSubmitting(false);
                         }
                     }
                 }}
             >
-                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+                {({errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values}) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
-                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
+                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{...theme.typography.customInput}}>
                             <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-login"
@@ -106,11 +106,7 @@ const FirebaseLogin = ({ ...others }) => {
                             )}
                         </FormControl>
 
-                        <FormControl
-                            fullWidth
-                            error={Boolean(touched.password && errors.password)}
-                            sx={{ ...theme.typography.customInput }}
-                        >
+                        <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{...theme.typography.customInput}}>
                             <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password-login"
@@ -142,12 +138,12 @@ const FirebaseLogin = ({ ...others }) => {
                             )}
                         </FormControl>
                         {errors.submit && (
-                            <Box sx={{ mt: 3 }}>
+                            <Box sx={{mt: 3}}>
                                 <FormHelperText error>{errors.submit}</FormHelperText>
                             </Box>
                         )}
 
-                        <Box sx={{ mt: 2 }}>
+                        <Box sx={{mt: 2}}>
                             <AnimateButton>
                                 <Button
                                     disableElevation

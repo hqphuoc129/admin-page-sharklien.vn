@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { forwardRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import {forwardRef, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import {Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery} from '@mui/material';
 
 // project imports
-import { MENU_OPEN, SET_MENU } from 'store/actions';
+import {MENU_OPEN, SET_MENU} from 'store/actions';
 import config from 'config';
 
 // assets
@@ -16,7 +16,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
-const NavItem = ({ item, level }) => {
+const NavItem = ({item, level}) => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const customization = useSelector((state) => state.customization);
@@ -44,12 +44,12 @@ const NavItem = ({ item, level }) => {
         component: forwardRef((props, ref) => <Link ref={ref} {...props} to={`${config.basename}${item.url}`} target={itemTarget} />)
     };
     if (item?.external) {
-        listItemProps = { component: 'a', href: item.url, target: itemTarget };
+        listItemProps = {component: 'a', href: item.url, target: itemTarget};
     }
 
     const itemHandler = (id) => {
-        dispatch({ type: MENU_OPEN, id });
-        if (matchesSM) dispatch({ type: SET_MENU, opened: false });
+        dispatch({type: MENU_OPEN, id});
+        if (matchesSM) dispatch({type: SET_MENU, opened: false});
     };
 
     // active menu item on page load
@@ -59,7 +59,7 @@ const NavItem = ({ item, level }) => {
             .split('/')
             .findIndex((id) => id === item.id);
         if (currentIndex > -1) {
-            dispatch({ type: MENU_OPEN, id: item.id });
+            dispatch({type: MENU_OPEN, id: item.id});
         }
         // eslint-disable-next-line
     }, []);
@@ -79,7 +79,7 @@ const NavItem = ({ item, level }) => {
             selected={customization.isOpen.findIndex((id) => id === item.id) > -1}
             onClick={() => itemHandler(item.id)}
         >
-            <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
+            <ListItemIcon sx={{my: 'auto', minWidth: !item?.icon ? 18 : 36}}>{itemIcon}</ListItemIcon>
             <ListItemText
                 primary={
                     <Typography variant={customization.isOpen.findIndex((id) => id === item.id) > -1 ? 'h5' : 'body1'} color="inherit">
@@ -88,7 +88,7 @@ const NavItem = ({ item, level }) => {
                 }
                 secondary={
                     item.caption && (
-                        <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+                        <Typography variant="caption" sx={{...theme.typography.subMenuCaption}} display="block" gutterBottom>
                             {item.caption}
                         </Typography>
                     )

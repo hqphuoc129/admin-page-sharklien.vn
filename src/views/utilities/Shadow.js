@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { Box, Card, Grid } from '@mui/material';
+import {Box, Card, Grid} from '@mui/material';
 
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
-import { gridSpacing } from 'store/constant';
+import {gridSpacing} from 'store/constant';
 
 // ===============================|| SHADOW BOX ||=============================== //
 
-const ShadowBox = ({ shadow }) => (
-    <Card sx={{ mb: 3, boxShadow: shadow }}>
+const ShadowBox = ({shadow}) => (
+    <Card sx={{mb: 3, boxShadow: shadow}}>
         <Box
             sx={{
                 display: 'flex',
@@ -23,7 +23,7 @@ const ShadowBox = ({ shadow }) => (
                 color: 'grey.800'
             }}
         >
-            <Box sx={{ color: 'inherit' }}>boxShadow: {shadow}</Box>
+            <Box sx={{color: 'inherit'}}>boxShadow: {shadow}</Box>
         </Box>
     </Card>
 );

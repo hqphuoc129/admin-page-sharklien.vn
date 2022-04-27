@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {useState, useRef, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import {
     Avatar,
     Box,
@@ -30,7 +30,7 @@ import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
 
 // assets
-import { IconBell } from '@tabler/icons';
+import {IconBell} from '@tabler/icons';
 
 // notification status options
 const status = [
@@ -99,7 +99,7 @@ const NotificationSection = () => {
                     }
                 }}
             >
-                <ButtonBase sx={{ borderRadius: '12px' }}>
+                <ButtonBase sx={{borderRadius: '12px'}}>
                     <Avatar
                         variant="rounded"
                         sx={{
@@ -141,14 +141,14 @@ const NotificationSection = () => {
                     ]
                 }}
             >
-                {({ TransitionProps }) => (
+                {({TransitionProps}) => (
                     <Transitions position={matchesXs ? 'top' : 'top-right'} in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
                                     <Grid container direction="column" spacing={2}>
                                         <Grid item xs={12}>
-                                            <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>
+                                            <Grid container alignItems="center" justifyContent="space-between" sx={{pt: 2, px: 2}}>
                                                 <Grid item>
                                                     <Stack direction="row" spacing={2}>
                                                         <Typography variant="subtitle1">All Notification</Typography>
@@ -171,11 +171,11 @@ const NotificationSection = () => {
                                         </Grid>
                                         <Grid item xs={12}>
                                             <PerfectScrollbar
-                                                style={{ height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden' }}
+                                                style={{height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden'}}
                                             >
                                                 <Grid container direction="column" spacing={2}>
                                                     <Grid item xs={12}>
-                                                        <Box sx={{ px: 2, pt: 0.25 }}>
+                                                        <Box sx={{px: 2, pt: 0.25}}>
                                                             <TextField
                                                                 id="outlined-select-currency-native"
                                                                 select
@@ -195,7 +195,7 @@ const NotificationSection = () => {
                                                         </Box>
                                                     </Grid>
                                                     <Grid item xs={12} p={0}>
-                                                        <Divider sx={{ my: 0 }} />
+                                                        <Divider sx={{my: 0}} />
                                                     </Grid>
                                                 </Grid>
                                                 <NotificationList />
@@ -203,7 +203,7 @@ const NotificationSection = () => {
                                         </Grid>
                                     </Grid>
                                     <Divider />
-                                    <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
+                                    <CardActions sx={{p: 1.25, justifyContent: 'center'}}>
                                         <Button size="small" disableElevation>
                                             View All
                                         </Button>

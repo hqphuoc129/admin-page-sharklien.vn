@@ -1,5 +1,5 @@
 // material-ui
-import { useTheme, styled } from '@mui/material/styles';
+import {useTheme, styled} from '@mui/material/styles';
 import {
     Avatar,
     Button,
@@ -18,11 +18,11 @@ import {
 } from '@mui/material';
 
 // assets
-import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons';
+import {IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto} from '@tabler/icons';
 import User1 from 'assets/images/users/user-round.svg';
 
 // styles
-const ListItemWrapper = styled('div')(({ theme }) => ({
+const ListItemWrapper = styled('div')(({theme}) => ({
     cursor: 'pointer',
     padding: 16,
     '&:hover': {
@@ -100,7 +100,7 @@ const NotificationList = () => {
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
+                    <Grid item xs={12} sx={{pb: 2}}>
                         <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -142,7 +142,7 @@ const NotificationList = () => {
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
+                    <Grid item xs={12} sx={{pb: 2}}>
                         <Typography variant="subtitle2">We have successfully received your request.</Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -181,7 +181,7 @@ const NotificationList = () => {
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
+                    <Grid item xs={12} sx={{pb: 2}}>
                         <Typography variant="subtitle2">All done! Now check your inbox as you&apos;re in for a sweet treat!</Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -213,7 +213,7 @@ const NotificationList = () => {
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
+                    <Grid item xs={12} sx={{pb: 2}}>
                         <Typography component="span" variant="subtitle2">
                             Uploaded two file on &nbsp;
                             <Typography component="span" variant="h6">
@@ -263,7 +263,7 @@ const NotificationList = () => {
                     </ListItemSecondaryAction>
                 </ListItem>
                 <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
+                    <Grid item xs={12} sx={{pb: 2}}>
                         <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
                     </Grid>
                     <Grid item xs={12}>
