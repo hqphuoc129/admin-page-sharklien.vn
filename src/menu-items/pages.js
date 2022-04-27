@@ -25,15 +25,15 @@ const pages = {
                     id: 'login3',
                     title: 'Media',
                     type: 'item',
-                    url: '/pages/login/login3',
-                    target: true
+                    url: '/',
+                    breadcrumbs: false
                 },
                 {
                     id: 'register3',
                     title: 'News',
                     type: 'item',
-                    url: '/pages/register/register3',
-                    target: true
+                    url: '/news',
+                    breadcrumbs: false
                 }
             ]
         }
