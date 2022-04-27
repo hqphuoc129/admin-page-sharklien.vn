@@ -5,6 +5,13 @@ import MainLayout from "layout/MainLayout";
 import Loadable from "ui-component/Loadable";
 
 // dashboard routing
+<<<<<<< HEAD
+const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+const News = Loadable(lazy(() => import('views/news/index')));
+const Media = Loadable(lazy(() => import('views/media/index')));
+const Videos = Loadable(lazy(() => import('views/videos/index')));
+const Images = Loadable(lazy(() => import('views/images/index')));
+=======
 const DashboardDefault = Loadable(
   lazy(() => import("views/dashboard/Default"))
 );
@@ -12,6 +19,7 @@ const News = Loadable(lazy(() => import("views/news/index")));
 const Images = Loadable(lazy(() => import("views/images/index")));
 
 const Videos = Loadable(lazy(() => import("views/videos/index")));
+>>>>>>> af2f22a49d1864cb2d4c58a96019368d97081bca
 
 // utilities routing
 const UtilsTypography = Loadable(
