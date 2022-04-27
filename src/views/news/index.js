@@ -4,6 +4,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useCallback, useState, useEffect, useMemo, useRef } from "react";
 import Popper from "@mui/material/Popper";
 import Box from "@mui/material/Box";
+import NewsForm from "./newsform";
+import { Grid, Button } from "@mui/material";
+import Popup from "layout/Popup";
+import GetNewsForm from "./newsform";
 
 const News = () => {
   const [data, setData] = useState([]);
@@ -55,9 +59,22 @@ const News = () => {
   }, []);
 
   console.log(data);
+  const [isLoading, setLoading] = useState(true);
+  const [openPopup, setOpenPopup] = useState(false);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
+      <div>
+        <Button variant="contained" onClick={() => setOpenPopup(!openPopup)}>
+          Create News
+        </Button>
+        <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
+          <GetNewsForm />
+        </Popup>
+      </div>
       <DataGrid
         rows={data}
         columns={columns}
