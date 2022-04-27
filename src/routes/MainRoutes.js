@@ -10,7 +10,7 @@ const DashboardDefault = Loadable(
 );
 const News = Loadable(lazy(() => import("views/news/index")));
 const Images = Loadable(lazy(() => import("views/images/index")));
-p;
+
 const Videos = Loadable(lazy(() => import("views/videos/index")));
 
 // utilities routing

@@ -1,38 +1,71 @@
-import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { Table } from "antd";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import "./image.scss";
+
+const columns = [
+  {
+    title: "ID",
+    dataIndex: "id",
+    width: "20%",
+  },
+  {
+    title: "Collection Name",
+    dataIndex: "collectionName",
+    width: "20%",
+  },
+  {
+    title: "Media List",
+    dataIndex: "mediaList",
+    className: "media-list",
+    render: (text, record) => {
+      return (
+        <>
+          {text.map((i, idx) => {
+            return (
+              <div key={idx}>
+                <img src={i} alt={""} />
+              </div>
+            );
+          })}
+        </>
+      );
+    },
+  },
+];
 
 const Images = () => {
-  const [data, setData] = useState([]);
-
-  const columns = [
-    { field: "id", headerName: "ID", width: 200 },
-    { field: "collectionName", headerName: "Collection Name", width: 200 },
-    { field: "mediaList", headerName: "Media List", width: 200 },
-  ];
-
+  const [state, setstate] = useState([]);
+  const [loading, setloading] = useState(true);
   useEffect(() => {
-    axios
-      .get(
-        "https://sharklien-backend.herokuapp.com/api/media/get-all-media-collection/image"
-      )
-      .then((response) => {
-        setData(response?.data?.data || []);
-      })
-      .catch((error) => console.log(error));
+    getData();
   }, []);
-
-  console.log(data);
-
+  const getData = async () => {
+    await Axios.get(
+      "https://sharklien-backend.herokuapp.com/api/media/get-all-media-collection/image"
+    ).then((res) => {
+      console.log(res.data);
+      setloading(false);
+      setstate(
+        res.data.data.map((row) => ({
+          collectionName: row.collectionName,
+          mediaList: row.mediaList,
+          id: row.id,
+        }))
+      );
+    });
+  };
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
+    <div>
+      {loading ? (
+        "Loading"
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={state}
+          pagination={{ pageSize: 10 }}
+        />
+      )}
     </div>
   );
 };
