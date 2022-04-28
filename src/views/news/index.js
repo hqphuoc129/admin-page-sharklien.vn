@@ -13,6 +13,8 @@ import GetNewsForm from "./newsform";
 import UpdateNewsForm from "./newsupdateform";
 import * as React from "react";
 import Axios from "axios";
+import { Modal } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const News = () => {
   const [data, setData] = useState([]);
@@ -25,16 +27,32 @@ const News = () => {
   });
   const [open, setOpen] = useState(false);
   const [updateUrl, setUpdateUrl] = useState("");
+  const { confirm } = Modal;
   const handleEditClick = (url) => () => {
     setOpen(true);
     setUpdateUrl(url);
   };
   const deleteNews = useCallback(
     async (url) => {
-      await axios.delete(
-        `https://sharklien-backend.herokuapp.com/api/news/delete-news/${url}`
-      );
-      setData(data.filter((item) => item.url !== url));
+      confirm({
+        title: "Do You Want To Delete This News?",
+        icon: <ExclamationCircleOutlined />,
+        onOk() {
+          axios
+            .delete(
+              `https://sharklien-backend.herokuapp.com/api/news/delete-news/${url}`
+            )
+            .then((res) => {
+              setData(data.filter((item) => item.url !== url));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        onCancel() {
+          console.log("Cancel");
+        },
+      });
     },
     [data]
   );
