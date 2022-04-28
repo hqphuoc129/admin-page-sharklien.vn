@@ -116,7 +116,11 @@ const Images = () => {
           >
             Create Image
           </Button>
-          <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
+          <Popup
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+            title={"Create Image Collection"}
+          >
             <ImageForm />
           </Popup>
           <Table
