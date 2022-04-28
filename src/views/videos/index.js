@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useCallback } from "react";
 import "../images/image.scss";
 // material-ui
-import { Grid, Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 
 import Popup from "../../layout/Popup";
 import VideoForm from "./form";
 import Axios from "axios";
-import { Table } from "antd";
+import { Table, Image, Divider, Modal } from "antd";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const getYoutubeThumbnail = (url, quality) => {
   if (url) {
@@ -39,7 +41,7 @@ const getYoutubeThumbnail = (url, quality) => {
   return false;
 };
 
-const columns = [
+const columns = (onDelete) => [
   {
     title: "ID",
     dataIndex: "id",
@@ -63,7 +65,12 @@ const columns = [
             return (
               <div key={idx}>
                 {thumbnailUrl ? (
-                  <img src={thumbnailUrl} alt="thumbnail" />
+                  <Image
+                    src={thumbnailUrl}
+                    height={56}
+                    width={100}
+                    alt="thumbnail"
+                  />
                 ) : null}
               </div>
             );
@@ -72,24 +79,42 @@ const columns = [
       );
     },
   },
+  {
+    title: "Action",
+    render: (data, record) => {
+      return (
+        <>
+          <IconButton
+            color="primary"
+            aria-label="delete collection"
+            component="span"
+            onClick={() => {
+              onDelete(data.collectionName);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </>
+      );
+    },
+  },
 ];
 
-
-
 const Videos = () => {
-  const [state, setstate] = useState([]);
+  const [state, setState] = useState([]);
   const [loading, setloading] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
+  const { confirm } = Modal;
   useEffect(() => {
     getData();
   }, []);
-  const getData = async () => {
-    await Axios.get(
+  const getData = () => {
+    Axios.get(
       "https://sharklien-backend.herokuapp.com/api/media/get-all-media-collection/video"
     ).then((res) => {
       console.log(res.data);
       setloading(false);
-      setstate(
+      setState(
         res.data.data.map((row) => ({
           collectionName: row.collectionName,
           mediaList: row.mediaList,
@@ -98,20 +123,49 @@ const Videos = () => {
       );
     });
   };
+  const onDelete = useCallback(
+    (collectionName) => {
+      confirm({
+        title: "Do You Want To Delete This Collection?",
+        icon: <ExclamationCircleOutlined />,
+        onOk() {
+          Axios.delete(
+            `https://sharklien-backend.herokuapp.com/api/media/delete-media-collection/${collectionName}`
+          ).then(() => {
+            setState(
+              state.filter((row) => row.collectionName !== collectionName)
+            );
+          });
+        },
+        onCancel() {
+          console.log("Cancel");
+        },
+      });
+    },
+    [state]
+  );
   return (
     <div>
       {loading ? (
         "Loading"
       ) : (
         <>
-          <Button variant="contained" style={{marginBottom: "2rem"}} onClick={() => setOpenPopup(!openPopup)}>
+          <Button
+            variant="contained"
+            style={{ marginBottom: "2rem" }}
+            onClick={() => setOpenPopup(!openPopup)}
+          >
             Create Video Collection
           </Button>
-          <Popup openPopup={openPopup} title={"Create Video Collection"} setOpenPopup={setOpenPopup}>
+          <Popup
+            openPopup={openPopup}
+            title={"Create Video Collection"}
+            setOpenPopup={setOpenPopup}
+          >
             <VideoForm />
           </Popup>
           <Table
-            columns={columns}
+            columns={columns(onDelete)}
             dataSource={state}
             pagination={{ pageSize: 10 }}
           />

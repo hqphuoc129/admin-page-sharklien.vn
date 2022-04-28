@@ -105,7 +105,7 @@ const News = () => {
   console.log(data);
 
   return (
-    <div style={{ height: "95%", width: "100%" }}>
+    <div style={{ height: "90%", width: "100%" }}>
       <div>
         <Button
           variant="contained"
