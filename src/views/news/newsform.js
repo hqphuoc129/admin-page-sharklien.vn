@@ -39,15 +39,16 @@ export default function GetNewsForm() {
 
   return (
     <form method="POST">
-      <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid container>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
           <TextField
             variant="outlined"
             label="Title"
             onChange={(e) => handleOnchange(e)}
-            value={values.collectionname}
+            value={values.title}
             id="title"
             fullWidth
+            required
           />
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
@@ -58,6 +59,7 @@ export default function GetNewsForm() {
             value={values.description}
             id="description"
             fullWidth
+            required
           />
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
@@ -73,21 +75,12 @@ export default function GetNewsForm() {
         <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
           <TextField
             variant="outlined"
-            label="Title"
-            onChange={(e) => handleOnchange(e)}
-            value={values.collectionname}
-            id="title"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
-          <TextField
-            variant="outlined"
             label="Thumbnail URL"
             onChange={(e) => handleOnchange(e)}
             value={values.thumbnailUrl}
             id="thumbnailUrl"
             fullWidth
+            required
           />
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
@@ -98,13 +91,10 @@ export default function GetNewsForm() {
             value={values.url}
             id="url"
             fullWidth
+            required
           />
         </Grid>
-        <Button
-          onClick={(e) => submit(e)}
-          variant="outlined"
-          style={{ margin: "2rem auto 1rem" }}
-        >
+        <Button onClick={(e) => submit(e)} variant="outlined">
           Submit
         </Button>
       </Grid>
