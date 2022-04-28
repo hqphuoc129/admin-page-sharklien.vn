@@ -52,13 +52,14 @@ export default function VideoForm() {
             mediaList: [''],
         }
 
+        const mediafinal = values.medialist.split('\n');
 
 
 
         Axios.post(url, {
                 collectionName: values.collectionname, 
                 isVideo:  values.isvideo, 
-                mediaList: ['']
+                mediaList: mediafinal
             }, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -70,6 +71,9 @@ export default function VideoForm() {
         .catch(error => {
             console.log(error.response)
         });
+
+
+        setValues(initialValues);
     }
 
     function handleOnchange (e) {
@@ -86,6 +90,7 @@ export default function VideoForm() {
                     <TextField required variant="outlined" fullWidth label="Collection Name"  onChange={(e) => handleOnchange(e)} value={values.collectionname} id="collectionname" />
                 </Grid>
                 <Grid item xs={12} className={classes.paddingGrid}>
+                    <p>Warning: For multiple link, Please enter after paste a link into TextArea</p>
                     <TextareaAutosize
                             aria-label="minimum height"
                             placeholder="Insert Link"
@@ -97,6 +102,8 @@ export default function VideoForm() {
                             onChange={(e) => handleOnchange(e)} 
                             value={values.medialist} 
                             id="medialist"
+
+                            
                     />
                 </Grid>
                 <Grid item xs={12} className={classes.paddingGrid}>
