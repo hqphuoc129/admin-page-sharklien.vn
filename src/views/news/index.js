@@ -1,6 +1,8 @@
 import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import CustomizedDialogs from "layout/CustomizedDialogs";
 import { useCallback, useState, useEffect, useMemo, useRef } from "react";
 import Popper from "@mui/material/Popper";
 import Box from "@mui/material/Box";
@@ -8,14 +10,25 @@ import NewsForm from "./newsform";
 import { Grid, Button } from "@mui/material";
 import Popup from "layout/Popup";
 import GetNewsForm from "./newsform";
+import UpdateNewsForm from "./newsupdateform";
+import * as React from "react";
+import Axios from "axios";
 
 const News = () => {
   const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+  const [values, setValues] = useState({
+    title: "",
+    description: "",
+    content: "",
+    thumbnailUrl: "",
+  });
+  const [open, setOpen] = useState(false);
+  const [updateUrl, setUpdateUrl] = useState("");
+  const handleEditClick = (url) => () => {
+    setOpen(true);
+    setUpdateUrl(url);
+  };
   const deleteNews = useCallback(
     async (url) => {
       await axios.delete(
@@ -25,6 +38,26 @@ const News = () => {
     },
     [data]
   );
+  const submit = () => {
+    const url = `https://sharklien-backend.herokuapp.com/api/news/update-news/${updateUrl}`;
+    Axios.put(url, {
+      title: values.title,
+      description: values.description,
+      content: values.content,
+      thumbnailUrl: values.thumbnailUrl,
+      url: updateUrl,
+    })
+      .then((res) => {
+        console.log(JSON.stringify(res.data));
+        setValues({
+          title: "",
+          description: "",
+          content: "",
+          thumbnailUrl: "",
+        });
+      })
+      .catch((err) => console.log(err));
+  };
   const columns = useMemo(
     () => [
       { field: "id", headerName: "ID", width: 200 },
@@ -36,6 +69,7 @@ const News = () => {
       {
         field: "actions",
         type: "actions",
+        headerName: "Actions",
         width: 80,
         getActions: (params) => [
           <GridActionsCellItem
@@ -48,10 +82,15 @@ const News = () => {
               });
             }}
           />,
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            onClick={handleEditClick(params.row.url)}
+          />,
         ],
       },
     ],
-    [deleteNews]
+    [deleteNews, handleEditClick]
   );
 
   useEffect(() => {
@@ -66,7 +105,7 @@ const News = () => {
   console.log(data);
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div style={{ height: "95%", width: "100%" }}>
       <div>
         <Button
           variant="contained"
@@ -102,6 +141,19 @@ const News = () => {
             backgroundColor: "rgba(255, 255, 255, 1)",
           },
         }}
+      />
+      <CustomizedDialogs
+        content={
+          <UpdateNewsForm
+            url={updateUrl}
+            values={values}
+            setValues={setValues}
+            updateUrl={updateUrl}
+          />
+        }
+        open={open}
+        setOpen={setOpen}
+        submit={submit}
       />
     </div>
   );

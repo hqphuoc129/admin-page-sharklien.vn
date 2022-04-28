@@ -48,26 +48,6 @@ const MainRoutes = {
       path: "/news",
       element: <News />,
     },
-    {
-      path: "/utils/util-typography",
-      element: <UtilsTypography />,
-    },
-    {
-      path: "/utils/util-color",
-      element: <UtilsColor />,
-    },
-    {
-      path: "/utils/util-shadow",
-      element: <UtilsShadow />,
-    },
-    {
-      path: "/icons/tabler-icons",
-      element: <UtilsTablerIcons />,
-    },
-    {
-      path: "/icons/material-icons",
-      element: <UtilsMaterialIcons />,
-    },
   ],
 };
 
