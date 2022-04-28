@@ -4,8 +4,8 @@ import { makeStyles } from "@mui/styles";
 import Axios from "axios";
 
 const initialValues = {
-  collectionname: "",
-  medialist: [],
+  collectionName: "",
+  mediaList: [],
   isVideo: false,
 };
 
@@ -31,11 +31,11 @@ export default function ImageForm() {
   function submit(e) {
     e.preventDefault();
     const formdata = new FormData();
-    formdata.append("collectionName", values.collectionname);
+    formdata.append("collectionName", values.collectionName);
     formdata.append("file", fileSelected);
 
     var body = {
-      collectionName: "",
+      ...formdata,
       isVideo: false,
       mediaList: [""],
     };
@@ -78,8 +78,8 @@ export default function ImageForm() {
             fullWidth
             label="Collection Name"
             onChange={(e) => handleOnchange(e)}
-            value={values.collectionname}
-            id="collectionname"
+            value={values.collectionName}
+            id="collectionName"
           />
         </Grid>
         <Grid item xs={12} className={classes.paddingGrid}>
