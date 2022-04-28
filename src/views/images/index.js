@@ -5,6 +5,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "./image.scss";
 import { IconButton } from "@mui/material";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Button } from "@mui/material";
+import Popup from "layout/Popup";
+import ImageForm from "./form";
 
 const columns = (onDelete) => [
   {
@@ -57,6 +60,7 @@ const columns = (onDelete) => [
 ];
 
 const Images = () => {
+  const [openPopup, setOpenPopup] = useState(false);
   const [state, setState] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
@@ -104,11 +108,23 @@ const Images = () => {
       {loading ? (
         "Loading"
       ) : (
-        <Table
-          columns={columns(onDelete)}
-          dataSource={state}
-          pagination={{ pageSize: 10 }}
-        />
+        <div>
+          <Button
+            variant="contained"
+            style={{ marginBottom: "2rem" }}
+            onClick={() => setOpenPopup(!openPopup)}
+          >
+            Create Image
+          </Button>
+          <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
+            <ImageForm />
+          </Popup>
+          <Table
+            columns={columns(onDelete)}
+            dataSource={state}
+            pagination={{ pageSize: 10 }}
+          />
+        </div>
       )}
     </div>
   );
