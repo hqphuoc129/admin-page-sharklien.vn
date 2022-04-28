@@ -1,0 +1,15 @@
+.ant-table-cell {
+  &.media-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ant-image {
+      margin: 0px 15px 15px 0px;
+
+      img {
+        height: auto;
+        border-radius: 8%;
+      }
+    }
+  }
+}
