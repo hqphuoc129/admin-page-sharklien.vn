@@ -39,8 +39,8 @@ export default function GetNewsForm() {
 
   return (
     <form method="POST">
-      <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+      <Grid container spacing={2} columnSpacing={{ xs: 1 }}>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             label="Title"
@@ -51,7 +51,7 @@ export default function GetNewsForm() {
             required
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             label="Description"
@@ -62,7 +62,7 @@ export default function GetNewsForm() {
             required
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             label="Content"
@@ -72,7 +72,7 @@ export default function GetNewsForm() {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             label="Thumbnail URL"
@@ -83,7 +83,7 @@ export default function GetNewsForm() {
             required
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             label="URL"
@@ -94,7 +94,11 @@ export default function GetNewsForm() {
             required
           />
         </Grid>
-        <Button onClick={(e) => submit(e)} variant="outlined">
+        <Button
+          style={{ marginTop: 10, marginLeft: 10 }}
+          onClick={(e) => submit(e)}
+          variant="outlined"
+        >
           Submit
         </Button>
       </Grid>
