@@ -11,6 +11,11 @@ import GetNewsForm from "./newsform";
 
 const News = () => {
   const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [openPopup, setOpenPopup] = useState(false);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
   const deleteNews = useCallback(
     async (url) => {
       await axios.delete(
@@ -59,16 +64,15 @@ const News = () => {
   }, []);
 
   console.log(data);
-  const [isLoading, setLoading] = useState(true);
-  const [openPopup, setOpenPopup] = useState(false);
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <div>
-        <Button variant="contained" style={{marginBottom: "2rem"}} onClick={() => setOpenPopup(!openPopup)}>
+        <Button
+          variant="contained"
+          style={{ marginBottom: "2rem" }}
+          onClick={() => setOpenPopup(!openPopup)}
+        >
           Create News
         </Button>
         <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
