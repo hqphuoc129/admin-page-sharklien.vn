@@ -32,7 +32,7 @@ export default function ImageForm() {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append("collectionName", values.collectionname);
-    formdata.append("mediaList", [""]);
+    formdata.append("file", fileSelected);
 
     var body = {
       collectionName: "",
@@ -40,13 +40,10 @@ export default function ImageForm() {
       mediaList: [""],
     };
 
-    const mediafinal = values.medialist.split("\n");
-
     Axios.post(
       url,
       {
-        collectionName: values.collectionname,
-        mediaList: mediafinal,
+        body,
       },
       {
         headers: {
