@@ -6,6 +6,7 @@ import Axios from "axios";
 const initialValues = {
   collectionname: "",
   medialist: [],
+  isVideo: false,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +36,7 @@ export default function ImageForm() {
 
     var body = {
       collectionName: "",
+      isVideo: false,
       mediaList: [""],
     };
 

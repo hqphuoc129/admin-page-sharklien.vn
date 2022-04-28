@@ -20,7 +20,7 @@ const initialValues = {
   collectionname: "",
   medialist: [],
   urlvid: "",
-  isvideo: false,
+  isvideo: true,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -51,12 +51,12 @@ export default function VideoForm() {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append("collectionName", values.collectionname);
-    formdata.append("isVideo", false);
+    formdata.append("isVideo", true);
     formdata.append("mediaList", [""]);
 
     var body = {
       collectionName: "",
-      isVideo: false,
+      isVideo: true,
       mediaList: [""],
     };
 
@@ -66,7 +66,7 @@ export default function VideoForm() {
       url,
       {
         collectionName: values.collectionname,
-        isVideo: values.isvideo,
+        isVideo: true,
         mediaList: mediafinal,
       },
       {
@@ -124,25 +124,25 @@ export default function VideoForm() {
             id="medialist"
           />
         </Grid>
-        <Grid item xs={12} className={classes.paddingGrid}>
-          <FormGroup>
-            <FormControlLabel
-              onClick={() => handleChange()}
-              control={<Switch value={values.isvideo} />}
-              label="Video"
-            />
-            {console.log(values.isvideo)}
-          </FormGroup>
-          <Button variant="contained" component="label">
-            Upload File
-            <input
-              type="file"
-              hidden
-              onChange={(e) => saveFileSelected(e)}
-              id="file"
-            />
-          </Button>
-        </Grid>
+        {/*<Grid item xs={12} className={classes.paddingGrid}>*/}
+        {/*  <FormGroup>*/}
+        {/*    <FormControlLabel*/}
+        {/*      onClick={() => handleChange()}*/}
+        {/*      control={<Switch value={values.isvideo} />}*/}
+        {/*      label="Video"*/}
+        {/*    />*/}
+        {/*    {console.log(values.isvideo)}*/}
+        {/*  </FormGroup>*/}
+        {/*  <Button variant="contained" component="label">*/}
+        {/*    Upload File*/}
+        {/*    <input*/}
+        {/*      type="file"*/}
+        {/*      hidden*/}
+        {/*      onChange={(e) => saveFileSelected(e)}*/}
+        {/*      id="file"*/}
+        {/*    />*/}
+        {/*  </Button>*/}
+        {/*</Grid>*/}
         <Button
           type="submit"
           variant="outlined"
