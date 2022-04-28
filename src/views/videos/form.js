@@ -3,6 +3,7 @@ import {FormControl, Button,FormControlLabel, FormGroup, FormLabel, Grid, Radio,
 import {Label} from '@mui/icons-material';
 import {makeStyles} from '@mui/styles';
 import Axios from 'axios'; 
+import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 const initialValues = {
     collectionname: '',
@@ -18,14 +19,14 @@ const useStyles = makeStyles (theme => ({
     }
 }))
 
-export default function ImageForm() {
+export default function VideoForm() {
     const [values, setValues] = useState(initialValues);
     const classes = useStyles();
     const handleChange = () => {
         setValues({ isvideo: !values.isvideo});
     };
 
-    const url = "https://sharklien-backend.herokuapp.com/api/media/create-image-collection"
+    const url = "https://sharklien-backend.herokuapp.com/api/media/create-video-collection"
 
     const [fileSelected, setFileSelected] = useState();
 
@@ -52,20 +53,22 @@ export default function ImageForm() {
         }
 
 
-        Axios({
-            url : url,
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-            data : formdata,
-            method: 'post',
+
+
+        Axios.post(url, {
+                collectionName: values.collectionname, 
+                isVideo:  values.isvideo, 
+                mediaList: ['']
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(response => { 
+            console.log(response)
         })
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch((error) => {
-            console.log(error)
-            //handle error
+        .catch(error => {
+            console.log(error.response)
         });
     }
 
@@ -78,11 +81,25 @@ export default function ImageForm() {
     
     return (
         <form method="POST" onSubmit={(e) => submit(e)}>
-            <Grid container>
-                <Grid item xs={6} className={classes.paddingGrid}>
-                    <TextField variant="outlined" label="Collection Name"  onChange={(e) => handleOnchange(e)} value={values.collectionname} id="collectionname" />
+            <Grid container spacing={2} columnSpacing={{ xs: 1 }} >
+                <Grid item xs={12} className={classes.paddingGrid}>
+                    <TextField required variant="outlined" fullWidth label="Collection Name"  onChange={(e) => handleOnchange(e)} value={values.collectionname} id="collectionname" />
                 </Grid>
-                <Grid item xs={6} className={classes.paddingGrid}>
+                <Grid item xs={12} className={classes.paddingGrid}>
+                    <TextareaAutosize
+                            aria-label="minimum height"
+                            placeholder="Insert Link"
+                            minRows={3}
+                            maxRows={6}
+                            required
+                            fullWidth
+                            style={{ width: "100%" }}
+                            onChange={(e) => handleOnchange(e)} 
+                            value={values.medialist} 
+                            id="medialist"
+                    />
+                </Grid>
+                <Grid item xs={12} className={classes.paddingGrid}>
                     <FormGroup>
                         <FormControlLabel onClick={() => handleChange()} control={<Switch value={values.isvideo} />} label="Video" />
                         {console.log(values.isvideo)}

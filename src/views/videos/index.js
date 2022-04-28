@@ -4,7 +4,7 @@ import "../images/image.scss";
 import { Grid, Button } from "@mui/material";
 
 import Popup from "../../layout/Popup";
-import ImageForm from "../dashboard/Default/form";
+import VideoForm from "./form";
 import Axios from "axios";
 import { Table } from "antd";
 
@@ -74,9 +74,12 @@ const columns = [
   },
 ];
 
+
+
 const Videos = () => {
   const [state, setstate] = useState([]);
   const [loading, setloading] = useState(true);
+  const [openPopup, setOpenPopup] = useState(false);
   useEffect(() => {
     getData();
   }, []);
@@ -100,11 +103,19 @@ const Videos = () => {
       {loading ? (
         "Loading"
       ) : (
-        <Table
-          columns={columns}
-          dataSource={state}
-          pagination={{ pageSize: 10 }}
-        />
+        <>
+          <Button variant="contained" style={{marginBottom: "2rem"}} onClick={() => setOpenPopup(!openPopup)}>
+            Create Video Collection
+          </Button>
+          <Popup openPopup={openPopup} title={"Create Video Collection"} setOpenPopup={setOpenPopup}>
+            <VideoForm />
+          </Popup>
+          <Table
+            columns={columns}
+            dataSource={state}
+            pagination={{ pageSize: 10 }}
+          />
+        </>
       )}
     </div>
   );

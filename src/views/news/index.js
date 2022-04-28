@@ -68,7 +68,7 @@ const News = () => {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <div>
-        <Button variant="contained" onClick={() => setOpenPopup(!openPopup)}>
+        <Button variant="contained" style={{marginBottom: "2rem"}} onClick={() => setOpenPopup(!openPopup)}>
           Create News
         </Button>
         <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
