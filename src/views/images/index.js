@@ -121,7 +121,7 @@ const Images = () => {
             setOpenPopup={setOpenPopup}
             title={"Create Image Collection"}
           >
-            <ImageForm />
+            <ImageForm setOpenPopup={setOpenPopup} />
           </Popup>
           <Table
             columns={columns(onDelete)}

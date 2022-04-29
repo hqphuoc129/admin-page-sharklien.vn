@@ -162,7 +162,7 @@ const Videos = () => {
             title={"Create Video Collection"}
             setOpenPopup={setOpenPopup}
           >
-            <VideoForm />
+            <VideoForm setOpenPopup={setOpenPopup} />
           </Popup>
           <Table
             columns={columns(onDelete)}
