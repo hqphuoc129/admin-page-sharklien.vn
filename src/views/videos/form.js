@@ -14,6 +14,7 @@ import {
 import { Label } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import Axios from "axios";
+import { notification } from "antd";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
 const initialValues = {
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VideoForm() {
+export default function VideoForm({ setOpenPopup }) {
   const [values, setValues] = useState(initialValues);
   const classes = useStyles();
   const handleChange = () => {
@@ -49,16 +50,6 @@ export default function VideoForm() {
 
   function submit(e) {
     e.preventDefault();
-    const formdata = new FormData();
-    formdata.append("collectionName", values.collectionname);
-    formdata.append("isVideo", true);
-    formdata.append("mediaList", [""]);
-
-    var body = {
-      collectionName: "",
-      isVideo: true,
-      mediaList: [""],
-    };
 
     const mediafinal = values.medialist.split("\n");
 
@@ -77,9 +68,22 @@ export default function VideoForm() {
     )
       .then((response) => {
         console.log(response);
+        setOpenPopup(false);
+        notification.success({
+          message: "Create Video Collection Success",
+          description: "",
+          top: 100,
+          duration: 10000,
+        });
       })
       .catch((error) => {
         console.log(error.response);
+        setOpenPopup(false);
+        notification.error({
+          message: "Create Video Collection Fail",
+          description: "",
+          top: 100,
+        });
       });
 
     setValues(initialValues);
