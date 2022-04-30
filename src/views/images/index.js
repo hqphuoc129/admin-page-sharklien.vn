@@ -1,4 +1,4 @@
-import { Table, Image, Divider, Modal } from "antd";
+import { Table, Image, Divider, Modal, Spin } from "antd";
 import React, { useState, useEffect, useCallback } from "react";
 import Axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -63,6 +63,7 @@ const Images = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [state, setState] = useState([]);
   const [loading, setloading] = useState(true);
+  const [spinning, setSpinning] = useState(false);
   useEffect(() => {
     getData();
   }, []);
@@ -119,10 +120,17 @@ const Images = () => {
           <Popup
             openPopup={openPopup}
             setOpenPopup={setOpenPopup}
-            title={"Create Image Collection"}
+            footer={null}
           >
-            <ImageForm setOpenPopup={setOpenPopup} />
+            <ImageForm
+              setOpenPopup={setOpenPopup}
+              setSpinning={setSpinning}
+              styles={{ margin: "auto" }}
+            />
           </Popup>
+          {/*<Modal visible={spinning} footer={null}>*/}
+          {/*  <Spin spinning={spinning} tip="Creating..." size="large" />*/}
+          {/*</Modal>*/}
           <Table
             columns={columns(onDelete)}
             dataSource={state}

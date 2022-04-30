@@ -157,11 +157,7 @@ const Videos = () => {
           >
             Create Video Collection
           </Button>
-          <Popup
-            openPopup={openPopup}
-            title={"Create Video Collection"}
-            setOpenPopup={setOpenPopup}
-          >
+          <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
             <VideoForm setOpenPopup={setOpenPopup} />
           </Popup>
           <Table

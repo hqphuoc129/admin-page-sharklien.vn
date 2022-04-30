@@ -3,7 +3,7 @@ import { Button, Grid, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { notification, Upload, message, Form } from "antd";
+import { notification, Upload, message, Form, Input } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,37 +11,26 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-const Input = styled("input")({
-  display: "none",
-});
+
 const initialValues = {
   collectionName: "",
 };
 const { Dragger } = Upload;
-export default function ImageForm({ setOpenPopup }) {
+export default function ImageForm({ setOpenPopup, setSpinning }) {
   const url = "http://127.0.0.1:5000/api/media/create-image-collection";
   const [values, setValues] = useState(initialValues);
-  const [fileSelected, setFileSelected] = useState({
-    files: [],
-  });
+  const [fileSelected, setFileSelected] = useState([]);
   const classes = useStyles();
 
-  // const saveFileSelected = (file) => {
-  //   console.log("In saveFileSelected");
-  //   setFileSelected({ files: [...fileSelected.files, file] });
-  //   console.table(fileSelected.files);
-  //   console.log("End saveFileSelected");
-  // };
   const [fileList, setFileList] = useState([]);
   const props = {
     name: "file",
     multiple: true,
-    action: (file) => setFileSelected({ files: [...fileSelected.files, file] }),
-    beforeUpload: (file) => {
-      console.log("In beforeUpload");
-      setFileList([...fileList, file]);
-      console.log("End beforeUpload");
-      return true;
+    accept: "image/*",
+    customRequest: ({ file, onSuccess }) => {
+      setTimeout(() => {
+        onSuccess("ok");
+      }, 1000);
     },
     listType: "picture",
     defaultFileList: [...fileList],
@@ -55,36 +44,31 @@ export default function ImageForm({ setOpenPopup }) {
           url: info.file,
         },
       ]);
+      setFileSelected(info.fileList.map((file) => file.originFileObj));
     },
     onDrop(e) {
       console.log("Dropped files", e.dataTransfer.files);
-      setFileSelected({ files: [...fileSelected.files, e.dataTransfer.files] });
-      console.log("Updated files", fileSelected.files);
-    },
-    onRemove: (file) => {
-      console.log("Removed file", file);
-      setFileSelected({
-        files: fileSelected.files.filter((f) => f.uid !== file.uid),
-      });
-      console.log("Updated files", fileSelected.files);
     },
   };
-  console.log("fileSelected", fileSelected.files);
 
   function submit(e) {
     e.preventDefault();
+    console.log("In submit");
+    console.log("fileSelected", fileSelected);
     const formData = new FormData();
     formData.append("collectionName", values.collectionName);
-    for (let i = 0; i < fileSelected.files.length; i++) {
-      formData.append("file", fileSelected.files[i]);
+    for (let i = 0; i < fileSelected.length; i++) {
+      formData.append("file", fileSelected[i]);
     }
     console.log(formData);
+    setOpenPopup(false);
+    setSpinning(true);
     fetch(url, {
       method: "POST",
       body: formData,
     })
       .then((response) => {
-        setOpenPopup(false);
+        setSpinning(false);
         notification.success({
           message: "Create Image Collection Success",
           description: "",
@@ -108,48 +92,25 @@ export default function ImageForm({ setOpenPopup }) {
     const newdata = { ...values };
     newdata[e.target.id] = e.target.value;
     setValues(newdata);
-    // console.log(newdata);
+    console.log(newdata);
   }
 
   return (
     <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
-      <Grid container spacing={2} columnSpacing={{ xs: 1 }}>
-        <Grid item xs={12} className={classes.paddingGrid}>
-          <TextField
-            required
-            variant="outlined"
-            fullWidth
-            label="Collection Name"
-            onChange={(e) => handleOnchange(e)}
-            value={values.collectionName}
-            id="collectionName"
-          />
-        </Grid>
-        {/*<Grid item xs={12} className={classes.paddingGrid}>*/}
-        {/*  <label htmlFor="contained-button-file">*/}
-        {/*    <Input*/}
-        {/*      accept="image/*"*/}
-        {/*      id="contained-button-file"*/}
-        {/*      multiple*/}
-        {/*      type="file"*/}
-        {/*      onChange={(e) => saveFileSelected(e)}*/}
-        {/*    />*/}
-        {/*    <Button variant="contained" component="span">*/}
-        {/*      Upload*/}
-        {/*    </Button>*/}
-        {/*  </label>*/}
-        {/*</Grid>*/}
-      </Grid>
+      <Input
+        placeholder="Collection Name"
+        size="middle"
+        onChange={(e) => handleOnchange(e)}
+        id="collectionName"
+      />
+      <br />
+      <br />
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
         <p className="ant-upload-text">
           Click or drag file to this area to upload
-        </p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibit from uploading
-          company data or other band files
         </p>
       </Dragger>
       <Button
