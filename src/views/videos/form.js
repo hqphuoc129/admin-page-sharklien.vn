@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import {
-  FormControl,
-  Button,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Switch,
-  TextField,
-} from "@mui/material";
-import { Label } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import Axios from "axios";
 import { notification } from "antd";
-import TextareaAutosize from "@mui/base/TextareaAutosize";
+import {
+  Input,
+  Button, 
+  Form,
+  Space
+} from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import "antd/dist/antd.css";
+import {FormContent, FormAction } from "./Style";
+import { useForm } from "react-hook-form";
+import FormControl from "./formcontrol";
+
 
 const initialValues = {
   collectionname: "",
@@ -33,10 +31,9 @@ const useStyles = makeStyles((theme) => ({
 export default function VideoForm({ setOpenPopup }) {
   const [values, setValues] = useState(initialValues);
   const classes = useStyles();
-  const handleChange = () => {
-    setValues({ isvideo: !values.isvideo });
-  };
+  const [form]  = Form.useForm()
 
+  
   const url =
     "https://sharklien-backend.herokuapp.com/api/media/create-video-collection";
 
@@ -51,14 +48,22 @@ export default function VideoForm({ setOpenPopup }) {
   function submit(e) {
     e.preventDefault();
 
-    const mediafinal = values.medialist.split("\n");
+    const data  = []
+
+    let geted = form.getFieldsValue()
+
+    geted.linkList.map((items) => data.push(items.linkname))
+
+    const newdata = {...values}
+    newdata["medialist"] = data 
+    setValues(newdata)
 
     Axios.post(
       url,
       {
         collectionName: values.collectionname,
         isVideo: true,
-        mediaList: mediafinal,
+        mediaList: newdata["medialist"],
       },
       {
         headers: {
@@ -87,6 +92,7 @@ export default function VideoForm({ setOpenPopup }) {
       });
 
     setValues(initialValues);
+    
   }
 
   function handleOnchange(e) {
@@ -96,65 +102,73 @@ export default function VideoForm({ setOpenPopup }) {
     console.log(newdata);
   }
 
+  const onSubmit = (e) => {
+    console.log(form.getFieldValue())
+
+  };
+
   return (
-    <form method="POST" onSubmit={(e) => submit(e)}>
-      <Grid container spacing={2} columnSpacing={{ xs: 1 }}>
-        <Grid item xs={12} className={classes.paddingGrid}>
-          <TextField
-            required
-            variant="outlined"
-            fullWidth
-            label="Collection Name"
+    <Form method="post"  form={form} onSubmit={(e) => submit(e)} >
+      <FormContent>
+        <Input placeholder="Collection Name" 
             onChange={(e) => handleOnchange(e)}
             value={values.collectionname}
-            id="collectionname"
-          />
-        </Grid>
-        <Grid item xs={12} className={classes.paddingGrid}>
-          <p>
-            Warning: For multiple link, Please enter after paste a link into
-            TextArea
-          </p>
-          <TextareaAutosize
-            aria-label="minimum height"
-            placeholder="Insert Link"
-            minRows={3}
-            maxRows={6}
-            required
-            fullWidth
-            style={{ width: "100%" }}
-            onChange={(e) => handleOnchange(e)}
-            value={values.medialist}
-            id="medialist"
-          />
-        </Grid>
-        {/*<Grid item xs={12} className={classes.paddingGrid}>*/}
-        {/*  <FormGroup>*/}
-        {/*    <FormControlLabel*/}
-        {/*      onClick={() => handleChange()}*/}
-        {/*      control={<Switch value={values.isvideo} />}*/}
-        {/*      label="Video"*/}
-        {/*    />*/}
-        {/*    {console.log(values.isvideo)}*/}
-        {/*  </FormGroup>*/}
-        {/*  <Button variant="contained" component="label">*/}
-        {/*    Upload File*/}
-        {/*    <input*/}
-        {/*      type="file"*/}
-        {/*      hidden*/}
-        {/*      onChange={(e) => saveFileSelected(e)}*/}
-        {/*      id="file"*/}
-        {/*    />*/}
-        {/*  </Button>*/}
-        {/*</Grid>*/}
-        <Button
-          type="submit"
-          variant="outlined"
-          style={{ marginLeft: "auto", marginRight: "auto" }}
+            id="collectionname"/>
+        <FormControl
         >
-          Submit
-        </Button>
-      </Grid>
-    </form>
+          <Form.List name="linkList">
+            {(fields, { add, remove }) => {
+              return (
+                <div>
+                  {fields.map((field) => (
+                    <Space
+                      key={field.key}
+                      style={{ display: "flex", justifyContent:"center", marginBottom: 8 }}
+                      align="center"
+                    >
+                      <Form.Item
+                        {...field}
+                        name={[field.name, "linkname"]}
+                        fieldKey={[field.fieldKey, "linkname"]}
+                        rules={[
+                          { required: true, message: "Missing link name" }
+                        ]}
+                      > 
+                        < Input 
+                          placeholder="Link"/>
+                      </Form.Item>
+
+                      <MinusCircleOutlined
+                        onClick={() => {
+                          remove(field.name);
+                          console.log(field);
+                        }}
+                      />
+                    </Space>
+                  ))}
+
+                  <Button
+                    type="dashed"
+                    onClick={() => {
+                      add();
+                    }}
+                    block
+                  >
+                    <PlusOutlined /> Add link
+                  </Button>
+                </div>
+              );
+            }}
+          </Form.List>
+        </FormControl>
+        <FormAction>
+        <div className="inner-wrapper">
+          <Button type="primary" onClick={(e)=>{submit(e)}} htmlType="submit">
+            Submit
+          </Button>
+        </div>
+      </FormAction>
+      </FormContent>
+    </Form>
   );
 }
