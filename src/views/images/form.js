@@ -17,7 +17,8 @@ const initialValues = {
 };
 const { Dragger } = Upload;
 export default function ImageForm({ setOpenPopup, setSpinning }) {
-  const url = "http://127.0.0.1:5000/api/media/create-image-collection";
+  const url =
+    "https://sharklien-backend.herokuapp.com/api/media/create-image-collection";
   const [values, setValues] = useState(initialValues);
   const [fileSelected, setFileSelected] = useState([]);
   const classes = useStyles();
