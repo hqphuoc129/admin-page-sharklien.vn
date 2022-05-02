@@ -16,7 +16,7 @@ import Axios from "axios";
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-const API_ADMIN_URL = process.env.API_ADMIN_URL;
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const News = () => {
   const [data, setData] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
@@ -40,7 +40,7 @@ const News = () => {
         icon: <ExclamationCircleOutlined />,
         onOk() {
           axios
-            .delete(`${API_ADMIN_URL}/news/delete-news/${url}`)
+            .delete(`${REACT_APP_API_ADMIN_URL}/news/delete-news/${url}`)
             .then((res) => {
               setData(data.filter((item) => item.url !== url));
             })
@@ -56,7 +56,7 @@ const News = () => {
     [data]
   );
   const submit = () => {
-    const url = `${API_ADMIN_URL}/news/update-news/${updateUrl}`;
+    const url = `${REACT_APP_API_ADMIN_URL}/news/update-news/${updateUrl}`;
     Axios.put(url, {
       title: values.title,
       description: values.description,
@@ -112,7 +112,7 @@ const News = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_ADMIN_URL}/news/get-all-news`)
+      .get(`${REACT_APP_API_ADMIN_URL}/news/get-all-news`)
       .then((response) => {
         setData(response?.data?.data || []);
       })

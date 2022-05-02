@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import Axios from "axios";
 
-const API_ADMIN_URL = process.env.API_ADMIN_URL;
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const initialValues = {
   title: "",
   description: "",
@@ -14,7 +14,7 @@ const initialValues = {
 export default function GetNewsForm() {
   const [values, setValues] = useState(initialValues);
 
-  const url = `${API_ADMIN_URL}/news/create-news`;
+  const url = `${REACT_APP_API_ADMIN_URL}/news/create-news`;
 
   function submit(e) {
     e.preventDefault();

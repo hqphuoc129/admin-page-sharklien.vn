@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import { notification, Upload, message, Form, Input } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 
-const API_ADMIN_URL = process.env.API_ADMIN_URL;
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const useStyles = makeStyles((theme) => ({
   paddingGrid: {
     padding: theme.spacing(3),
@@ -18,7 +18,7 @@ const initialValues = {
 };
 const { Dragger } = Upload;
 export default function ImageForm({ setOpenPopup, setSpinning }) {
-  const url = `${API_ADMIN_URL}/media/create-image-collection`;
+  const url = `${REACT_APP_API_ADMIN_URL}/media/create-image-collection`;
   const [values, setValues] = useState(initialValues);
   const [fileSelected, setFileSelected] = useState([]);
   const classes = useStyles();
