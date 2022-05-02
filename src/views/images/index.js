@@ -9,7 +9,7 @@ import { Button } from "@mui/material";
 import Popup from "layout/Popup";
 import ImageForm from "./form";
 
-const API_ADMIN_URL = process.env.API_ADMIN_URL;
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const columns = (onDelete) => [
   {
     title: "ID",
@@ -70,19 +70,19 @@ const Images = () => {
   }, []);
   const { confirm } = Modal;
   const getData = () => {
-    Axios.get(`${API_ADMIN_URL}/media/get-all-media-collection/image`).then(
-      (res) => {
-        console.log(res.data);
-        setloading(false);
-        setState(
-          res.data.data.map((row) => ({
-            collectionName: row.collectionName,
-            mediaList: row.mediaList,
-            id: row.id,
-          }))
-        );
-      }
-    );
+    Axios.get(
+      `${REACT_APP_API_ADMIN_URL}/media/get-all-media-collection/image`
+    ).then((res) => {
+      console.log(res.data);
+      setloading(false);
+      setState(
+        res.data.data.map((row) => ({
+          collectionName: row.collectionName,
+          mediaList: row.mediaList,
+          id: row.id,
+        }))
+      );
+    });
   };
   const onDelete = useCallback(
     (collectionName) => {
@@ -91,7 +91,7 @@ const Images = () => {
         icon: <ExclamationCircleOutlined />,
         onOk() {
           Axios.delete(
-            `${API_ADMIN_URL}/media/delete-media-collection/${collectionName}`
+            `${REACT_APP_API_ADMIN_URL}/media/delete-media-collection/${collectionName}`
           ).then(() => {
             setState(
               state.filter((row) => row.collectionName !== collectionName)

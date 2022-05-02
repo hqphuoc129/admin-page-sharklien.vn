@@ -2,18 +2,12 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Axios from "axios";
 import { notification } from "antd";
-import {
-  Input,
-  Button, 
-  Form,
-  Space
-} from 'antd';
+import { Input, Button, Form, Space } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import {FormContent, FormAction } from "./Style";
+import { FormContent, FormAction } from "./Style";
 import { useForm } from "react-hook-form";
 import FormControl from "./formcontrol";
-
 
 const initialValues = {
   collectionname: "",
@@ -21,7 +15,7 @@ const initialValues = {
   urlvid: "",
   isvideo: true,
 };
-const API_ADMIN_URL = process.env.API_ADMIN_URL;
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const useStyles = makeStyles((theme) => ({
   paddingGrid: {
     padding: theme.spacing(3),
@@ -31,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
 export default function VideoForm({ setOpenPopup }) {
   const [values, setValues] = useState(initialValues);
   const classes = useStyles();
-  const [form]  = Form.useForm()
+  const [form] = Form.useForm();
 
-  const url = `${API_ADMIN_URL}/media/create-video-collection`;
+  const url = `${REACT_APP_API_ADMIN_URL}/media/create-video-collection`;
 
   const [fileSelected, setFileSelected] = useState();
 
@@ -46,15 +40,15 @@ export default function VideoForm({ setOpenPopup }) {
   function submit(e) {
     e.preventDefault();
 
-    const data  = []
+    const data = [];
 
-    let geted = form.getFieldsValue()
+    let geted = form.getFieldsValue();
 
-    geted.linkList.map((items) => data.push(items.linkname))
+    geted.linkList.map((items) => data.push(items.linkname));
 
-    const newdata = {...values}
-    newdata["medialist"] = data 
-    setValues(newdata)
+    const newdata = { ...values };
+    newdata["medialist"] = data;
+    setValues(newdata);
 
     Axios.post(
       url,
@@ -90,7 +84,6 @@ export default function VideoForm({ setOpenPopup }) {
       });
 
     setValues(initialValues);
-    
   }
 
   function handleOnchange(e) {
@@ -101,19 +94,19 @@ export default function VideoForm({ setOpenPopup }) {
   }
 
   const onSubmit = (e) => {
-    console.log(form.getFieldValue())
-
+    console.log(form.getFieldValue());
   };
 
   return (
-    <Form method="post"  form={form} onSubmit={(e) => submit(e)} >
+    <Form method="post" form={form} onSubmit={(e) => submit(e)}>
       <FormContent>
-        <Input placeholder="Collection Name" 
-            onChange={(e) => handleOnchange(e)}
-            value={values.collectionname}
-            id="collectionname"/>
-        <FormControl
-        >
+        <Input
+          placeholder="Collection Name"
+          onChange={(e) => handleOnchange(e)}
+          value={values.collectionname}
+          id="collectionname"
+        />
+        <FormControl>
           <Form.List name="linkList">
             {(fields, { add, remove }) => {
               return (
@@ -121,7 +114,11 @@ export default function VideoForm({ setOpenPopup }) {
                   {fields.map((field) => (
                     <Space
                       key={field.key}
-                      style={{ display: "flex", justifyContent:"center", marginBottom: 8 }}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: 8,
+                      }}
                       align="center"
                     >
                       <Form.Item
@@ -129,11 +126,10 @@ export default function VideoForm({ setOpenPopup }) {
                         name={[field.name, "linkname"]}
                         fieldKey={[field.fieldKey, "linkname"]}
                         rules={[
-                          { required: true, message: "Missing link name" }
+                          { required: true, message: "Missing link name" },
                         ]}
-                      > 
-                        < Input 
-                          placeholder="Link"/>
+                      >
+                        <Input placeholder="Link" />
                       </Form.Item>
 
                       <MinusCircleOutlined
@@ -160,12 +156,18 @@ export default function VideoForm({ setOpenPopup }) {
           </Form.List>
         </FormControl>
         <FormAction>
-        <div className="inner-wrapper">
-          <Button type="primary" onClick={(e)=>{submit(e)}} htmlType="submit">
-            Submit
-          </Button>
-        </div>
-      </FormAction>
+          <div className="inner-wrapper">
+            <Button
+              type="primary"
+              onClick={(e) => {
+                submit(e);
+              }}
+              htmlType="submit"
+            >
+              Submit
+            </Button>
+          </div>
+        </FormAction>
       </FormContent>
     </Form>
   );
