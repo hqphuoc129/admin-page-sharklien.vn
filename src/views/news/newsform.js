@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import Axios from "axios";
 
+const API_ADMIN_URL = process.env.API_ADMIN_URL;
 const initialValues = {
   title: "",
   description: "",
@@ -13,7 +14,7 @@ const initialValues = {
 export default function GetNewsForm() {
   const [values, setValues] = useState(initialValues);
 
-  const url = "https://sharklien-backend.herokuapp.com/api/news/create-news";
+  const url = `${API_ADMIN_URL}/news/create-news`;
 
   function submit(e) {
     e.preventDefault();
