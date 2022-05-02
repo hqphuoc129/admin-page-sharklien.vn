@@ -21,7 +21,7 @@ const initialValues = {
   urlvid: "",
   isvideo: true,
 };
-
+const API_ADMIN_URL = process.env.API_ADMIN_URL;
 const useStyles = makeStyles((theme) => ({
   paddingGrid: {
     padding: theme.spacing(3),
@@ -33,9 +33,7 @@ export default function VideoForm({ setOpenPopup }) {
   const classes = useStyles();
   const [form]  = Form.useForm()
 
-  
-  const url =
-    "https://sharklien-backend.herokuapp.com/api/media/create-video-collection";
+  const url = `${API_ADMIN_URL}/media/create-video-collection`;
 
   const [fileSelected, setFileSelected] = useState();
 
