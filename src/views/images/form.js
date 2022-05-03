@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import { notification, Upload, message, Form, Input } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const useStyles = makeStyles((theme) => ({
   paddingGrid: {
     padding: theme.spacing(3),
@@ -17,12 +18,11 @@ const initialValues = {
 };
 const { Dragger } = Upload;
 export default function ImageForm({ setOpenPopup, setSpinning }) {
-  const url =
-    "https://sharklien-backend.herokuapp.com/api/media/create-image-collection";
+  const url = `${REACT_APP_API_ADMIN_URL}/media/create-image-collection`;
   const [values, setValues] = useState(initialValues);
   const [fileSelected, setFileSelected] = useState([]);
   const classes = useStyles();
-
+  const [inputStatus, setInputStatus] = useState("");
   const [fileList, setFileList] = useState([]);
   const props = {
     name: "file",
@@ -56,44 +56,64 @@ export default function ImageForm({ setOpenPopup, setSpinning }) {
     e.preventDefault();
     console.log("In submit");
     console.log("fileSelected", fileSelected);
-    const formData = new FormData();
-    formData.append("collectionName", values.collectionName);
-    for (let i = 0; i < fileSelected.length; i++) {
-      formData.append("file", fileSelected[i]);
-    }
-    console.log(formData);
-    setOpenPopup(false);
-    setSpinning(true);
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        setSpinning(false);
-        notification.success({
-          message: "Create Image Collection Success",
-          description: "",
-          top: 100,
-          duration: 10000,
-        });
-      })
-      .catch((error) => {
-        notification.error({
-          message: "Create Image Collection Fail",
-          description: "",
-          top: 100,
-        });
-        console.log(error.response);
+    //check if values.collectionName is empty
+    if (values.collectionName === "") {
+      setInputStatus("error");
+      return notification.error({
+        message: "Error",
+        description: "Please enter a collection name",
       });
+    } else if (fileSelected.length === 0) {
+      return notification.error({
+        message: "Error",
+        description: "Please select at least one image",
+      });
+    } else {
+      setInputStatus("");
+      const formData = new FormData();
+      formData.append("collectionName", values.collectionName);
+      for (let i = 0; i < fileSelected.length; i++) {
+        formData.append("file", fileSelected[i]);
+      }
+      console.log(formData);
+      setOpenPopup(false);
+      setSpinning(true);
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          setSpinning(false);
+          notification.success({
+            message: "Create Image Collection Success",
+            description: "",
+            top: 100,
+            duration: 10000,
+          });
+        })
+        .catch((error) => {
+          notification.error({
+            message: "Create Image Collection Fail",
+            description: "",
+            top: 100,
+          });
+          console.log(error.response);
+        });
 
-    setValues(initialValues);
+      setValues(initialValues);
+    }
   }
 
   function handleOnchange(e) {
-    const newdata = { ...values };
-    newdata[e.target.id] = e.target.value;
-    setValues(newdata);
-    console.log(newdata);
+    //validate if the input is empty
+    if (e.target.value === "") {
+      setInputStatus("error");
+    } else {
+      const newdata = { ...values };
+      newdata[e.target.id] = e.target.value;
+      setValues(newdata);
+      console.log(newdata);
+    }
   }
 
   return (
@@ -103,6 +123,7 @@ export default function ImageForm({ setOpenPopup, setSpinning }) {
         size="middle"
         onChange={(e) => handleOnchange(e)}
         id="collectionName"
+        status={inputStatus}
       />
       <br />
       <br />

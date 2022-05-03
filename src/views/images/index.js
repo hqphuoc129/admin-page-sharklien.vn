@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import Popup from "layout/Popup";
 import ImageForm from "./form";
 
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const columns = (onDelete) => [
   {
     title: "ID",
@@ -70,7 +71,7 @@ const Images = () => {
   const { confirm } = Modal;
   const getData = () => {
     Axios.get(
-      "https://sharklien-backend.herokuapp.com/api/media/get-all-media-collection/image"
+      `${REACT_APP_API_ADMIN_URL}/media/get-all-media-collection/image`
     ).then((res) => {
       console.log(res.data);
       setloading(false);
@@ -90,7 +91,7 @@ const Images = () => {
         icon: <ExclamationCircleOutlined />,
         onOk() {
           Axios.delete(
-            `https://sharklien-backend.herokuapp.com/api/media/delete-media-collection/${collectionName}`
+            `${REACT_APP_API_ADMIN_URL}/media/delete-media-collection/${collectionName}`
           ).then(() => {
             setState(
               state.filter((row) => row.collectionName !== collectionName)

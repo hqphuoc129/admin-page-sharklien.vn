@@ -16,6 +16,7 @@ import Axios from "axios";
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const News = () => {
   const [data, setData] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
@@ -39,9 +40,7 @@ const News = () => {
         icon: <ExclamationCircleOutlined />,
         onOk() {
           axios
-            .delete(
-              `https://sharklien-backend.herokuapp.com/api/news/delete-news/${url}`
-            )
+            .delete(`${REACT_APP_API_ADMIN_URL}/news/delete-news/${url}`)
             .then((res) => {
               setData(data.filter((item) => item.url !== url));
             })
@@ -57,7 +56,7 @@ const News = () => {
     [data]
   );
   const submit = () => {
-    const url = `https://sharklien-backend.herokuapp.com/api/news/update-news/${updateUrl}`;
+    const url = `${REACT_APP_API_ADMIN_URL}/news/update-news/${updateUrl}`;
     Axios.put(url, {
       title: values.title,
       description: values.description,
@@ -113,7 +112,7 @@ const News = () => {
 
   useEffect(() => {
     axios
-      .get("https://sharklien-backend.herokuapp.com/api/news/get-all-news")
+      .get(`${REACT_APP_API_ADMIN_URL}/news/get-all-news`)
       .then((response) => {
         setData(response?.data?.data || []);
       })
