@@ -4,10 +4,12 @@ import Axios from "axios";
 import { notification } from "antd";
 import {
   Input,
-  Button, 
   Form,
   Space
 } from 'antd';
+import {
+  Button,
+} from '@mui/material';
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import {FormContent, FormAction } from "./Style";
@@ -113,7 +115,9 @@ export default function VideoForm({ setOpenPopup }) {
         <Input placeholder="Collection Name" 
             onChange={(e) => handleOnchange(e)}
             value={values.collectionname}
-            id="collectionname"/>
+            id="collectionname"
+            required
+            />
         <FormControl
         >
           <Form.List name="linkList">
@@ -163,7 +167,7 @@ export default function VideoForm({ setOpenPopup }) {
         </FormControl>
         <FormAction>
         <div className="inner-wrapper">
-          <Button type="primary" onClick={(e)=>{submit(e)}} htmlType="submit">
+          <Button type="primary"         variant="outlined" onClick={(e)=>{submit(e)}} htmlType="submit">
             Submit
           </Button>
         </div>

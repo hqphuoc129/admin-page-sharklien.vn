@@ -3,7 +3,7 @@ import { themeGet } from "@styled-system/theme-get";
 
 const Stepper = styled.div`
   display: flex;
-  min-height: 25rem;
+  min-height: fit-content;
   flex-direction: column;
   padding-top: 15px;
 
@@ -16,6 +16,7 @@ const Stepper = styled.div`
   .ant-space-item:first-child {
     width: 100%;
 }   
+
 
   .stepper-progress {
     position: fixed;
@@ -78,7 +79,7 @@ export const FormContent = styled.div`
   flex: 1;
   max-width: 1050px;
   width: 100%;
-  margin: 71px auto 104px;
+  margin: 0px;
   @media only screen and (max-width: 1050px) {
     padding: 0 30px;
   }
@@ -241,15 +242,16 @@ export const FormAction = styled.div`
       width: calc(100% - 60px);
     }
   }
+  .iMOOuY {
+    margin : 0px
+  }
   button {
     font-size: 15px;
-    font-weight: 700;
+    font-weight: normal;
     height: 47px;
-    border: 0;
     border-radius: 3px;
     min-width: 95px;
     font-family: "Lato", sans-serif;
-    background-color: ${themeGet("primary.0", "#008489")};
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -261,7 +263,6 @@ export const FormAction = styled.div`
       outline: 0;
       box-shadow: none;
       opacity: 0.9;
-      background-color: ${themeGet("primary.0", "#008489")};
     }
     &.back-btn {
       background-color: transparent;
@@ -270,7 +271,6 @@ export const FormAction = styled.div`
       padding: 0;
       &:hover,
       &:focus {
-        color: ${themeGet("primary.0", "#008489")};
       }
       svg {
         margin-right: 4px;
