@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Axios from "axios";
 import { notification } from "antd";
-<<<<<<< HEAD
 import {
   Input,
   Form,
@@ -11,9 +10,6 @@ import {
 import {
   Button,
 } from '@mui/material';
-=======
-import { Input, Button, Form, Space } from "antd";
->>>>>>> 90418df218e31022da8c534489c8be35220dfb05
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { FormContent, FormAction } from "./Style";
@@ -111,7 +107,6 @@ export default function VideoForm({ setOpenPopup }) {
   return (
     <Form method="post" form={form} onSubmit={(e) => submit(e)}>
       <FormContent>
-<<<<<<< HEAD
         <Input placeholder="Collection Name" 
             onChange={(e) => handleOnchange(e)}
             value={values.collectionname}
@@ -120,15 +115,6 @@ export default function VideoForm({ setOpenPopup }) {
             />
         <FormControl
         >
-=======
-        <Input
-          placeholder="Collection Name"
-          onChange={(e) => handleOnchange(e)}
-          value={values.collectionname}
-          id="collectionname"
-        />
-        <FormControl>
->>>>>>> 90418df218e31022da8c534489c8be35220dfb05
           <Form.List name="linkList">
             {(fields, { add, remove }) => {
               return (
@@ -178,17 +164,10 @@ export default function VideoForm({ setOpenPopup }) {
           </Form.List>
         </FormControl>
         <FormAction>
-<<<<<<< HEAD
-        <div className="inner-wrapper">
-          <Button type="primary"         variant="outlined" onClick={(e)=>{submit(e)}} htmlType="submit">
-            Submit
-          </Button>
-        </div>
-      </FormAction>
-=======
           <div className="inner-wrapper">
             <Button
               type="primary"
+              variant="outlined"
               onClick={(e) => {
                 submit(e);
               }}
@@ -198,7 +177,6 @@ export default function VideoForm({ setOpenPopup }) {
             </Button>
           </div>
         </FormAction>
->>>>>>> 90418df218e31022da8c534489c8be35220dfb05
       </FormContent>
     </Form>
   );
