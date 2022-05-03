@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Axios from "axios";
 import { notification } from "antd";
-import { Input, Button, Form, Space } from "antd";
+import {
+  Input,
+  Form,
+  Space
+} from 'antd';
+import {
+  Button,
+} from '@mui/material';
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { FormContent, FormAction } from "./Style";
@@ -100,13 +107,14 @@ export default function VideoForm({ setOpenPopup }) {
   return (
     <Form method="post" form={form} onSubmit={(e) => submit(e)}>
       <FormContent>
-        <Input
-          placeholder="Collection Name"
-          onChange={(e) => handleOnchange(e)}
-          value={values.collectionname}
-          id="collectionname"
-        />
-        <FormControl>
+        <Input placeholder="Collection Name" 
+            onChange={(e) => handleOnchange(e)}
+            value={values.collectionname}
+            id="collectionname"
+            required
+            />
+        <FormControl
+        >
           <Form.List name="linkList">
             {(fields, { add, remove }) => {
               return (
@@ -159,6 +167,7 @@ export default function VideoForm({ setOpenPopup }) {
           <div className="inner-wrapper">
             <Button
               type="primary"
+              variant="outlined"
               onClick={(e) => {
                 submit(e);
               }}
