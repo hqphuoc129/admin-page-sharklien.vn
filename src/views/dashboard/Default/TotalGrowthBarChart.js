@@ -19,6 +19,7 @@ import { gridSpacing } from "store/constant";
 import chartData from "./chart-data/total-growth-bar-chart";
 import Axios from "axios";
 
+const REACT_APP_API_ADMIN_URL = process.env.REACT_APP_API_ADMIN_URL;
 const status = [
   {
     value: "today",
@@ -52,7 +53,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
   const secondaryLight = theme.palette.secondary.light;
   useEffect(async () => {
     const dataStatistics = await Axios.get(
-      `https://sharklien-backend.herokuapp.com/api/statistics`
+      `${REACT_APP_API_ADMIN_URL}/statistics`
     );
     const { numVideoCollections, numImageCollections, numNews, _ } =
       dataStatistics?.data?.data;
