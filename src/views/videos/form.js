@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function VideoForm({ setOpenPopup }) {
   const [values, setValues] = useState(initialValues);
+  const [validate, setValidate] = useState({
+    validateStatus: "", 
+    errormsg : ""
+  });
   const classes = useStyles();
   const [form] = Form.useForm();
 
@@ -46,6 +50,14 @@ export default function VideoForm({ setOpenPopup }) {
 
   function submit(e) {
     e.preventDefault();
+
+    if (values.collectionname === ""){
+      return setValidate({
+        validateStatus : "error", 
+        errormsg: "Please fill your Collection name"
+      })
+    }
+    else {
 
     const data = [];
 
@@ -91,6 +103,7 @@ export default function VideoForm({ setOpenPopup }) {
       });
 
     setValues(initialValues);
+    }
   }
 
   function handleOnchange(e) {
@@ -107,12 +120,17 @@ export default function VideoForm({ setOpenPopup }) {
   return (
     <Form method="post" form={form} onSubmit={(e) => submit(e)}>
       <FormContent>
+        <Form.Item
+          validateStatus={validate.validateStatus}
+          help ={validate.errormsg || ""}
+        >
         <Input placeholder="Collection Name" 
             onChange={(e) => handleOnchange(e)}
             value={values.collectionname}
             id="collectionname"
             required
             />
+        </Form.Item>
         <FormControl
         >
           <Form.List name="linkList">
