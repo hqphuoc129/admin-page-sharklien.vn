@@ -3,7 +3,7 @@ import { Button, Grid, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import { notification, Upload, message, Form, Input } from "antd";
+import { notification, Upload, message, Form, Input, Spin } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { FormContent } from "views/videos/Style";
 
@@ -18,7 +18,7 @@ const initialValues = {
   collectionName: "",
 };
 const { Dragger } = Upload;
-export default function ImageForm({ setOpenPopup, setSpinning }) {
+export default function ImageForm({ setOpenPopup, setSpinning, spinning }) {
   const [form] = Form.useForm();
   const url = `${REACT_APP_API_ADMIN_URL}/media/create-image-collection`;
   const [values, setValues] = useState(initialValues);
@@ -81,7 +81,6 @@ export default function ImageForm({ setOpenPopup, setSpinning }) {
           formData.append("file", fileSelected[i]);
         }
         console.log(formData);
-        setOpenPopup(false);
         setSpinning(true);
         fetch(url, {
           method: "POST",
@@ -89,6 +88,7 @@ export default function ImageForm({ setOpenPopup, setSpinning }) {
         })
           .then((response) => {
             setSpinning(false);
+            setOpenPopup(false);
             notification.success({
               message: "Create Image Collection Success",
               description: "",
@@ -118,27 +118,31 @@ export default function ImageForm({ setOpenPopup, setSpinning }) {
   }, [form]);
 
   return (
-    <Form form={form} wrapperCol={{ span: 32 }} onChange={formChange}>
-      <Form.Item name="collectionName" rules={[{ required: true }]}>
-        <Input placeholder="Collection Name" />
-      </Form.Item>
-      <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">
-          Click or drag file to this area to upload
-        </p>
-      </Dragger>
-      <Button
-        type="submit"
-        variant="outlined"
-        fullWidth
-        style={{ margin: "1rem auto 0.5rem" }}
-        onClick={(e) => submit(e)}
-      >
-        Submit
-      </Button>
-    </Form>
+    <>
+      <Spin spinning={spinning}>
+        <Form form={form} wrapperCol={{ span: 32 }} onChange={formChange}>
+          <Form.Item name="collectionName" rules={[{ required: true }]}>
+            <Input placeholder="Collection Name" />
+          </Form.Item>
+          <Dragger {...props}>
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
+          </Dragger>
+          <Button
+            type="submit"
+            variant="outlined"
+            fullWidth
+            style={{ margin: "1rem auto 0.5rem" }}
+            onClick={(e) => submit(e)}
+          >
+            Submit
+          </Button>
+        </Form>
+      </Spin>
+    </>
   );
 }

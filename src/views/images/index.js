@@ -126,12 +126,10 @@ const Images = () => {
             <ImageForm
               setOpenPopup={setOpenPopup}
               setSpinning={setSpinning}
+              spinning={spinning}
               styles={{ margin: "auto" }}
             />
           </Popup>
-          {/*<Modal visible={spinning} footer={null}>*/}
-          {/*  <Spin spinning={spinning} tip="Creating..." size="large" />*/}
-          {/*</Modal>*/}
           <Table
             columns={columns(onDelete)}
             dataSource={state}
